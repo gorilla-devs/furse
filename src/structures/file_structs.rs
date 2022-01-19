@@ -3,6 +3,7 @@ use super::{
     Datetime, ID,
 };
 use serde::{Deserialize, Serialize};
+use serde_repr::{Deserialize_repr, Serialize_repr};
 use std::clone::Clone;
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
@@ -49,48 +50,32 @@ pub struct File {
     pub modules: Vec<FileModule>,
 }
 
-#[derive(Deserialize, Serialize, Debug, Clone)]
+#[derive(Deserialize_repr, Serialize_repr, Debug, Clone)]
+#[repr(u8)]
 pub enum FileReleaseType {
-    #[serde(rename = "1")]
-    Release,
-    #[serde(rename = "2")]
-    Beta,
-    #[serde(rename = "3")]
-    Alpha,
+    Release = 1,
+    Beta = 2,
+    Alpha = 3,
 }
 
-#[derive(Deserialize, Serialize, Debug, Clone)]
+#[derive(Deserialize_repr, Serialize_repr, Debug, Clone)]
+#[repr(u8)]
 pub enum FileStatus {
-    #[serde(rename = "1")]
-    Processing,
-    #[serde(rename = "2")]
-    ChangesRequired,
-    #[serde(rename = "3")]
-    UnderReview,
-    #[serde(rename = "4")]
-    Approved,
-    #[serde(rename = "5")]
-    Rejected,
-    #[serde(rename = "6")]
-    MalwareDetected,
-    #[serde(rename = "7")]
-    Deleted,
-    #[serde(rename = "8")]
-    Archived,
-    #[serde(rename = "9")]
-    Testing,
-    #[serde(rename = "10")]
-    Released,
-    #[serde(rename = "11")]
-    ReadyForReview,
-    #[serde(rename = "12")]
-    Deprecated,
-    #[serde(rename = "13")]
-    Baking,
-    #[serde(rename = "14")]
-    AwaitingPublishing,
-    #[serde(rename = "15")]
-    FailedPublishing,
+    Processing = 1,
+    ChangesRequired = 2,
+    UnderReview = 3,
+    Approved = 4,
+    Rejected = 5,
+    MalwareDetected = 6,
+    Deleted = 7,
+    Archived = 8,
+    Testing = 9,
+    Released = 10,
+    ReadyForReview = 11,
+    Deprecated = 12,
+    Baking = 13,
+    AwaitingPublishing = 14,
+    FailedPublishing = 15,
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
@@ -110,36 +95,30 @@ pub struct FileHash {
     pub algo: HashAlgo,
 }
 
-#[derive(Deserialize, Serialize, Debug, Clone)]
+#[derive(Deserialize_repr, Serialize_repr, Debug, Clone)]
+#[repr(u8)]
 pub enum HashAlgo {
-    #[serde(rename = "1")]
-    Sha1,
-    #[serde(rename = "2")]
-    Md5,
+    Sha1 = 1,
+    Md5 = 2,
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct FileDependency {
     pub mod_id: ID,
-    pub field: ID,
+    pub file_id: ID,
     pub relation_type: FileRelationType,
 }
 
-#[derive(Deserialize, Serialize, Debug, Clone)]
+#[derive(Deserialize_repr, Serialize_repr, Debug, Clone)]
+#[repr(u8)]
 pub enum FileRelationType {
-    #[serde(rename = "1")]
-    EmbeddedLibrary,
-    #[serde(rename = "2")]
-    OptionalDependency,
-    #[serde(rename = "3")]
-    RequiredDependency,
-    #[serde(rename = "4")]
-    Tool,
-    #[serde(rename = "5")]
-    Incompatible,
-    #[serde(rename = "6")]
-    Include,
+    EmbeddedLibrary = 1,
+    OptionalDependency = 2,
+    RequiredDependency = 3,
+    Tool = 4,
+    Incompatible = 5,
+    Include = 6,
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone)]

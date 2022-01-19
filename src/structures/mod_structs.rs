@@ -4,6 +4,7 @@ use super::{
     Datetime, ID,
 };
 use serde::{Deserialize, Serialize};
+use serde_repr::{Deserialize_repr, Serialize_repr};
 use std::clone::Clone;
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
@@ -24,7 +25,7 @@ pub struct Mod {
     /// Current mod status
     pub status: ModStatus,
     /// Number of downloads for the mod
-    pub download_count: usize,
+    pub download_count: f32,
     /// Whether the mod is included in the featured mods list
     pub is_featured: bool,
     /// The main category of the mod as it was chosen by the mod author
@@ -55,33 +56,24 @@ pub struct Mod {
 #[serde(rename_all = "camelCase")]
 pub struct ModLinks {
     pub website_url: String,
-    pub wiki_url: String,
-    pub issues_url: String,
-    pub source_url: String,
+    pub wiki_url: Option<String>,
+    pub issues_url: Option<String>,
+    pub source_url: Option<String>,
 }
 
-#[derive(Deserialize, Serialize, Debug, Clone)]
+#[derive(Deserialize_repr, Serialize_repr, Debug, Clone)]
+#[repr(u8)]
 pub enum ModStatus {
-    #[serde(rename = "1")]
-    New,
-    #[serde(rename = "2")]
-    ChangesRequired,
-    #[serde(rename = "3")]
-    UnderSoftReview,
-    #[serde(rename = "4")]
-    Approved,
-    #[serde(rename = "5")]
-    Rejected,
-    #[serde(rename = "6")]
-    ChangesMade,
-    #[serde(rename = "7")]
-    Inactive,
-    #[serde(rename = "8")]
-    Abandoned,
-    #[serde(rename = "9")]
-    Deleted,
-    #[serde(rename = "10")]
-    UnderReview,
+    New = 1,
+    ChangesRequired = 2,
+    UnderSoftReview = 3,
+    Approved = 4,
+    Rejected = 5,
+    ChangesMade = 6,
+    Inactive = 7,
+    Abandoned = 8,
+    Deleted = 9,
+    UnderReview = 10,
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone)]

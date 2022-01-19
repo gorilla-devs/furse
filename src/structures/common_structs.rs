@@ -1,4 +1,5 @@
 use super::{Datetime, ID};
+use serde_repr::{Deserialize_repr, Serialize_repr};
 use serde::{Deserialize, Serialize};
 use std::clone::Clone;
 
@@ -55,16 +56,12 @@ pub struct Pagination {
     pub total_count: Option<u64>,
 }
 
-#[derive(Deserialize, Serialize, Debug, Clone)]
+#[derive(Deserialize_repr, Serialize_repr, Debug, Clone)]
+#[repr(u8)]
 pub enum ModLoaderType {
-    #[serde(rename = "0")]
-    Any,
-    #[serde(rename = "1")]
-    Forge,
-    #[serde(rename = "2")]
-    Cauldron,
-    #[serde(rename = "3")]
-    LiteLoader,
-    #[serde(rename = "4")]
-    Fabric,
+    Any = 0,
+    Forge = 1,
+    Cauldron = 2,
+    LiteLoader = 3,
+    Fabric = 4,
 }

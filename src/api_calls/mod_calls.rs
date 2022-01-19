@@ -19,7 +19,7 @@ impl Furse {
     /// # Ok::<(), reqwest::Error>(()) } );
     /// ```
     pub async fn get_mod(&self, mod_id: ID) -> Result<Mod> {
-        let response: Response<Mod> = request_rel(self, format!("/mod/{}", mod_id))
+        let response: Response<Mod> = request_rel(self, format!("/mods/{}", mod_id))
             .await?
             .json()
             .await?;
@@ -38,7 +38,7 @@ impl Furse {
     /// # Ok::<(), reqwest::Error>(()) } );
     /// ```
     pub async fn get_mod_description(&self, mod_id: ID) -> Result<String> {
-        let response: Response<String> = request_rel(self, format!("/mod/{}/description", mod_id))
+        let response: Response<String> = request_rel(self, format!("/mods/{}/description", mod_id))
             .await?
             .json()
             .await?;
