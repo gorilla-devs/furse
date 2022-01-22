@@ -1,6 +1,5 @@
 [package]
 name = "furse"
-# The major version specifies which version of the CurseForge API this supports
 version = "1.0.0"
 edition = "2021"
 authors = ["theRookieCoder <ileshkt@gmail.com>"]
@@ -10,9 +9,6 @@ license = "MIT"
 publish = ["crates-io"]
 keywords = ["curseforge", "minecraft", "modding"]
 categories = ["api-bindings", "asynchronous"]
-exclude = [
-	"example/*"
-]
 
 [dependencies]
 reqwest = { version = "0", default-features = false, features = ["json", "rustls-tls"] }

@@ -1,14 +1,14 @@
 use crate::{
+    api_calls::Response,
     request::request_rel,
     structures::{mod_structs::Mod, ID},
     Furse, Result,
 };
 
-use super::Response;
-
 impl Furse {
     /// Get mod with ID `mod_id`
     ///
+    /// Example:
     /// ```rust
     /// # tokio_test::block_on( async {
     /// # let curseforge = furse::Furse::new(env!("CURSEFORGE_API_KEY"));
@@ -28,6 +28,7 @@ impl Furse {
 
     /// Get the description of mod with ID `mod_id`
     ///
+    /// Example:
     /// ```rust
     /// # tokio_test::block_on( async {
     /// # let curseforge = furse::Furse::new(env!("CURSEFORGE_API_KEY"));

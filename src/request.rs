@@ -12,5 +12,5 @@ pub(crate) async fn request_rel(client: &Furse, route: String) -> Result<Respons
 pub(crate) async fn request(client: &Furse, url: impl IntoUrl) -> Result<Response> {
     let request = client.client.get(url).header("x-api-key", &client.api_key);
 
-    Ok(request.send().await?.error_for_status()?)
+    request.send().await?.error_for_status()
 }
