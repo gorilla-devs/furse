@@ -20,10 +20,11 @@ impl Furse {
     /// # Ok::<(), reqwest::Error>(()) } );
     /// ```
     pub async fn get_mod_files(&self, mod_id: ID) -> Result<Vec<File>> {
-        let response: Response<Vec<File>> = request_rel(self, format!("/mods/{}/files", mod_id))
-            .await?
-            .json()
-            .await?;
+        let response: Response<Vec<File>> =
+            request_rel(self, format!("/mods/{}/files?pageSize=10000", mod_id))
+                .await?
+                .json()
+                .await?;
         Ok(response.data)
     }
 
