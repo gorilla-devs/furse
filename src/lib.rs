@@ -38,6 +38,7 @@ pub(crate) type Result<T> = std::result::Result<T, Error>;
 /// let terralith_mod = curseforge.get_mod(513688).await?;
 /// # Ok::<(), reqwest::Error>(()) } );
 /// ```
+#[derive(Clone, Debug)]
 pub struct Furse {
     client: reqwest::Client,
     api_key: String,

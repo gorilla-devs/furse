@@ -1,6 +1,6 @@
 use super::{Datetime, ID};
-use serde_repr::{Deserialize_repr, Serialize_repr};
 use serde::{Deserialize, Serialize};
+use serde_repr::{Deserialize_repr, Serialize_repr};
 use std::clone::Clone;
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
