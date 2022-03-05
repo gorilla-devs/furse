@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.3] - 05.03.2022
+
+- Removed `file_id` field of `FileDependency`
+
 ## [1.0.2] - 02.02.2022
 
 - Implement `Debug` and `Clone` for `Furse`
