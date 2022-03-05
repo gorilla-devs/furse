@@ -106,7 +106,6 @@ pub enum HashAlgo {
 #[serde(rename_all = "camelCase")]
 pub struct FileDependency {
     pub mod_id: ID,
-    pub file_id: ID,
     pub relation_type: FileRelationType,
 }
 
