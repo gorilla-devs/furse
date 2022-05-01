@@ -24,7 +24,13 @@ mod api_calls;
 mod request;
 pub mod structures;
 
-pub type Error = reqwest::Error;
+#[derive(thiserror::Error, Debug)]
+pub enum Error {
+    #[error("{}", .0)]
+    ReqwestError(#[from] reqwest::Error),
+    #[error("{}", .0)]
+    URLParseError(#[from] url::ParseError),
+}
 pub(crate) type Result<T> = std::result::Result<T, Error>;
 
 /// An instance of the API to invoke API calls on
@@ -32,11 +38,12 @@ pub(crate) type Result<T> = std::result::Result<T, Error>;
 /// To initialise this container,
 /// ```rust
 /// # use furse::Furse;
-/// # tokio_test::block_on( async {
+/// # #[tokio::main]
+/// # async fn main() -> Result<(), furse::Error> {
 /// let curseforge = Furse::new(env!("CURSEFORGE_API_KEY"));
 /// // Use the instance to call the API
 /// let terralith_mod = curseforge.get_mod(513688).await?;
-/// # Ok::<(), reqwest::Error>(()) } );
+/// # Ok(()) }
 /// ```
 #[derive(Clone, Debug)]
 pub struct Furse {
@@ -47,7 +54,8 @@ pub struct Furse {
 impl Furse {
     /// Create a new API instance
     ///
-    /// `api_key` should be the CurseForge API key, which you can obtain by applying [here](https://forms.monday.com/forms/dce5ccb7afda9a1c21dab1a1aa1d84eb?r=use1)
+    /// `api_key` should be a CurseForge API key.
+    /// You can obtain one by applying [here](https://forms.monday.com/forms/dce5ccb7afda9a1c21dab1a1aa1d84eb?r=use1)
     ///
     /// ```rust
     /// # use furse::Furse;

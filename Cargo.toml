@@ -1,22 +1,24 @@
 [package]
 name = "furse"
-version = "1.0.3"
+version = "1.1.0"
 edition = "2021"
-authors = ["theRookieCoder <ileshkt@gmail.com>"]
+authors = ["Ilesh Thiada <ileshkt@gmail.com>"]
 description = "A simple library to use the CurseForge API in Rust projects"
 repository = "https://github.com/theRookieCoder/furse"
 license = "MIT"
 publish = ["crates-io"]
 keywords = ["curseforge", "minecraft", "modding"]
-categories = ["api-bindings", "asynchronous"]
+categories = ["api-bindings"]
 
 [dependencies]
 reqwest = { version = "0", default-features = false, features = ["json", "rustls-tls"] }
 chrono = { version = "0", features = ["serde"] }
 serde = { version = "1", features = ["derive"] }
+lazy_static = "1"
 serde_repr = "0"
+thiserror = "1"
 bytes = "1"
+url = "2"
 
 [dev-dependencies]
 tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
-tokio-test = "0"

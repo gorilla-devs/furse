@@ -8,6 +8,7 @@ use std::clone::Clone;
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields)]
 pub struct File {
     /// The file id
     pub id: ID,
@@ -50,7 +51,7 @@ pub struct File {
     pub modules: Vec<FileModule>,
 }
 
-#[derive(Deserialize_repr, Serialize_repr, Debug, Clone)]
+#[derive(Deserialize_repr, Serialize_repr, Debug, Clone, PartialEq, Eq)]
 #[repr(u8)]
 pub enum FileReleaseType {
     Release = 1,
@@ -58,7 +59,7 @@ pub enum FileReleaseType {
     Alpha = 3,
 }
 
-#[derive(Deserialize_repr, Serialize_repr, Debug, Clone)]
+#[derive(Deserialize_repr, Serialize_repr, Debug, Clone, PartialEq, Eq)]
 #[repr(u8)]
 pub enum FileStatus {
     Processing = 1,
@@ -80,6 +81,7 @@ pub enum FileStatus {
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields)]
 pub struct FileIndex {
     pub game_version: String,
     pub file_id: ID,
@@ -90,12 +92,14 @@ pub struct FileIndex {
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
+#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields)]
 pub struct FileHash {
     pub value: String,
     pub algo: HashAlgo,
 }
 
-#[derive(Deserialize_repr, Serialize_repr, Debug, Clone)]
+#[derive(Deserialize_repr, Serialize_repr, Debug, Clone, PartialEq, Eq)]
 #[repr(u8)]
 pub enum HashAlgo {
     Sha1 = 1,
@@ -104,12 +108,13 @@ pub enum HashAlgo {
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields)]
 pub struct FileDependency {
     pub mod_id: ID,
     pub relation_type: FileRelationType,
 }
 
-#[derive(Deserialize_repr, Serialize_repr, Debug, Clone)]
+#[derive(Deserialize_repr, Serialize_repr, Debug, Clone, PartialEq, Eq)]
 #[repr(u8)]
 pub enum FileRelationType {
     EmbeddedLibrary = 1,
@@ -121,6 +126,8 @@ pub enum FileRelationType {
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
+#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields)]
 pub struct FileModule {
     pub name: String,
     pub fingerprint: i64,

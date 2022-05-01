@@ -1,10 +1,10 @@
-use super::{Datetime, ID};
+use super::*;
 use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
-use std::clone::Clone;
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields)]
 pub struct Category {
     /// The category id
     pub id: ID,
@@ -30,6 +30,7 @@ pub struct Category {
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields)]
 pub struct SortableGameVersion {
     /// Original version name (e.g. 1.5b)
     pub game_version_name: String,
@@ -45,6 +46,7 @@ pub struct SortableGameVersion {
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields)]
 pub struct Pagination {
     /// A zero based index of the first item that is included in the response
     pub index: u32,
@@ -56,7 +58,7 @@ pub struct Pagination {
     pub total_count: Option<u64>,
 }
 
-#[derive(Deserialize_repr, Serialize_repr, Debug, Clone)]
+#[derive(Deserialize_repr, Serialize_repr, Debug, Clone, PartialEq, Eq)]
 #[repr(u8)]
 pub enum ModLoaderType {
     Any = 0,

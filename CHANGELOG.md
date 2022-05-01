@@ -1,5 +1,24 @@
 # Changelog
 
+## `1.1.0`
+### 01.05.2022
+
+- Add url parse error
+- Make the tests actually capture errors
+- Improve requests to use url parsing
+- All structs consistently use the following:
+```rust
+#[derive(Deserialize, Serialize, Debug, Clone)]
+#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields)]
+```
+- All enums consistently use the following:
+```rust
+#[derive(Deserialize_repr, Serialize_repr, Debug, Clone, PartialEq, Eq)]
+#[repr(u8)]
+```
+- Added missing fields for `Mod`
+
 ## [1.0.3] - 05.03.2022
 
 - Removed `file_id` field of `FileDependency`

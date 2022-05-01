@@ -9,6 +9,7 @@ use std::clone::Clone;
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields)]
 pub struct Mod {
     /// The mod ID
     pub id: ID,
@@ -32,6 +33,8 @@ pub struct Mod {
     pub primary_category_id: ID,
     /// List of categories that this mod is related to
     pub categories: Vec<Category>,
+    /// The class id this mod belongs to
+    pub class_id: Option<i32>,
     /// List of the mod's authors
     pub authors: Vec<ModAuthor>,
     /// The mod's logo asset
@@ -50,10 +53,19 @@ pub struct Mod {
     pub date_modified: Datetime,
     /// The release date of the mod
     pub date_released: Datetime,
+    /// Is mod allowed to be distributed
+    pub allow_mod_distribution: Option<bool>,
+    /// The mod popularity rank for the game
+    pub game_popularity_rank: i32,
+    /// Is the mod available for search. This can be false when a mod is experimental, in a deleted state or has only alpha files
+    pub is_available: bool,
+    /// The mod's thumbs up count
+    pub thumbs_up_count: Option<i32>,
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields)]
 pub struct ModLinks {
     pub website_url: String,
     pub wiki_url: Option<String>,
@@ -61,7 +73,7 @@ pub struct ModLinks {
     pub source_url: Option<String>,
 }
 
-#[derive(Deserialize_repr, Serialize_repr, Debug, Clone)]
+#[derive(Deserialize_repr, Serialize_repr, Debug, Clone, PartialEq, Eq)]
 #[repr(u8)]
 pub enum ModStatus {
     New = 1,
@@ -77,6 +89,8 @@ pub enum ModStatus {
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
+#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields)]
 pub struct ModAuthor {
     pub id: ID,
     pub name: String,
@@ -85,6 +99,7 @@ pub struct ModAuthor {
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields)]
 pub struct ModAsset {
     pub id: ID,
     pub mod_id: ID,
