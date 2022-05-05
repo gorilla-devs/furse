@@ -38,7 +38,7 @@ pub struct Mod {
     /// List of the mod's authors
     pub authors: Vec<ModAuthor>,
     /// The mod's logo asset
-    pub logo: ModAsset,
+    pub logo: Option<ModAsset>,
     /// List of screenshot assets
     pub screenshots: Vec<ModAsset>,
     /// The ID of the main file of the mod

@@ -1,5 +1,10 @@
 # Changelog
 
+## `1.1.1`
+### 05.05.2022
+
+Make the `logo` field of `Mod` nullable because CurseForge is having an issue where some of the mods' logos are null.
+
 ## `1.1.0`
 ### 01.05.2022
 
