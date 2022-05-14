@@ -1,5 +1,11 @@
 # Changelog
 
+## `1.1.2`
+### 14.05.2022
+
+- Remove `download_mod_file_from_file()` and `download_mod_file_from_file_id`
+- Add `file_download_url()` to get the download url of a file
+
 ## `1.1.1`
 ### 05.05.2022
 

@@ -4,7 +4,7 @@ use crate::{
     structures::{file_structs::File, ID},
     Furse, Result,
 };
-use bytes::Bytes;
+use reqwest::Url;
 
 impl Furse {
     /// Get the files of mod with `mod_id`
@@ -91,42 +91,23 @@ impl Furse {
         .data)
     }
 
-    /// Download and return `file`'s contents
+    /// Get the download URL of the file with `file_id` of mod with `mod_id`
     ///
     /// Example:
     /// ```rust
     /// # #[tokio::main]
     /// # async fn main() -> Result<(), furse::Error> {
     /// # let curseforge = furse::Furse::new(env!("CURSEFORGE_API_KEY"));
-    /// // Get the Terralith mod's v2.0.12 file
-    /// let terralith_mod_file = curseforge.get_mod_file(513688, 3606078).await?;
-    /// // Download that file
-    /// let contents = curseforge.download_mod_file_from_file(&terralith_mod_file).await?;
-    /// // The contents returned should be of the length specified in the file struct
-    /// assert!(contents.len() as u64 == terralith_mod_file.file_length);
-    /// # Ok(()) }
-    /// ```
-    pub async fn download_mod_file_from_file(&self, file: &File) -> Result<Bytes> {
-        Ok(request(self, &file.download_url).await?.bytes().await?)
-    }
-
-    /// Download and return contents of file with `file_id` of mod with `mod_id`
-    ///
-    /// Example:
-    /// ```rust
-    /// # #[tokio::main]
-    /// # async fn main() -> Result<(), furse::Error> {
-    /// # let curseforge = furse::Furse::new(env!("CURSEFORGE_API_KEY"));
-    /// // Download the Terralith mod's v2.0.12 file
-    /// let contents = curseforge.download_mod_file_from_file_id(513688, 3606078).await?;
     /// // Get information about the file
     /// let terralith_mod_file = curseforge.get_mod_file(513688, 3606078).await?;
-    /// // The contents returned should be of the length specified in the file struct
-    /// assert!(contents.len() as u64 == terralith_mod_file.file_length);
+    /// // Get the file's download url
+    /// let download_url = curseforge.file_download_url(513688, 3606078).await?;
+    /// // They should be the same url
+    /// assert!(download_url.to_string() == terralith_mod_file.download_url);
     /// # Ok(()) }
     /// ```
-    pub async fn download_mod_file_from_file_id(&self, mod_id: ID, file_id: ID) -> Result<Bytes> {
-        let response: Response<String> = request(
+    pub async fn file_download_url(&self, mod_id: ID, file_id: ID) -> Result<Url> {
+        Ok(request(
             self,
             API_URL_BASE
                 .join("mods/")?
@@ -136,8 +117,8 @@ impl Furse {
                 .join("download-url")?,
         )
         .await?
-        .json()
-        .await?;
-        Ok(request(self, response.data).await?.bytes().await?)
+        .json::<Response<Url>>()
+        .await?
+        .data)
     }
 }
