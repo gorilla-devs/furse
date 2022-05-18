@@ -34,8 +34,9 @@ pub struct File {
     pub file_length: u64,
     /// The number of downloads for the file
     pub download_count: u64,
-    /// The file download URL
-    pub download_url: String,
+    /// The file download URL.
+    /// Is null if the mod has disabled mod distribution
+    pub download_url: Option<String>,
     /// List of game versions this file is relevant for
     pub game_versions: Vec<String>,
     /// Metadata used for sorting by game versions

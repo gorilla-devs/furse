@@ -103,7 +103,7 @@ impl Furse {
     /// // Get the file's download url
     /// let download_url = curseforge.file_download_url(513688, 3606078).await?;
     /// // They should be the same url
-    /// assert!(download_url.to_string() == terralith_mod_file.download_url);
+    /// assert!(Some(download_url.to_string()) == terralith_mod_file.download_url);
     /// # Ok(()) }
     /// ```
     pub async fn file_download_url(&self, mod_id: ID, file_id: ID) -> Result<Url> {
