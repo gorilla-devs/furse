@@ -1,7 +1,9 @@
 use crate::{
-    api_calls::Response,
-    request::{request, API_URL_BASE},
-    structures::{file_structs::File, ID},
+    request::API_URL_BASE,
+    structures::{
+        file_structs::{File, GetFilesBody},
+        ID,
+    },
     Furse, Result,
 };
 use reqwest::Url;
@@ -21,17 +23,12 @@ impl Furse {
     /// # Ok(()) }
     /// ```
     pub async fn get_mod_files(&self, mod_id: ID) -> Result<Vec<File>> {
-        // "/mods/{}/files?pageSize=10000"
         let mut url = API_URL_BASE
             .join("mods/")?
             .join(&format!("{}/", mod_id))?
             .join("files")?;
         url.set_query(Some("pageSize=10000"));
-        Ok(request(self, url)
-            .await?
-            .json::<Response<Vec<File>>>()
-            .await?
-            .data)
+        Ok(self.get(url).await?.data)
     }
 
     /// Get the file with `file_id` of mod with `mod_id`
@@ -48,18 +45,16 @@ impl Furse {
     /// # Ok(()) }
     /// ```
     pub async fn get_mod_file(&self, mod_id: ID, file_id: ID) -> Result<File> {
-        Ok(request(
-            self,
-            API_URL_BASE
-                .join("mods/")?
-                .join(&format!("{}/", mod_id))?
-                .join("files/")?
-                .join(&file_id.to_string())?,
-        )
-        .await?
-        .json::<Response<File>>()
-        .await?
-        .data)
+        Ok(self
+            .get(
+                API_URL_BASE
+                    .join("mods/")?
+                    .join(&format!("{}/", mod_id))?
+                    .join("files/")?
+                    .join(&file_id.to_string())?,
+            )
+            .await?
+            .data)
     }
 
     /// Get the changelog of the file with `file_id` of mod with `mod_id`
@@ -76,19 +71,17 @@ impl Furse {
     /// # Ok(()) }
     /// ```
     pub async fn get_mod_file_changelog(&self, mod_id: ID, file_id: ID) -> Result<String> {
-        Ok(request(
-            self,
-            API_URL_BASE
-                .join("mods/")?
-                .join(&format!("{}/", mod_id))?
-                .join("files/")?
-                .join(&format!("{}/", file_id))?
-                .join("changelog")?,
-        )
-        .await?
-        .json::<Response<String>>()
-        .await?
-        .data)
+        Ok(self
+            .get(
+                API_URL_BASE
+                    .join("mods/")?
+                    .join(&format!("{}/", mod_id))?
+                    .join("files/")?
+                    .join(&format!("{}/", file_id))?
+                    .join("changelog")?,
+            )
+            .await?
+            .data)
     }
 
     /// Get the download URL of the file with `file_id` of mod with `mod_id`
@@ -107,18 +100,39 @@ impl Furse {
     /// # Ok(()) }
     /// ```
     pub async fn file_download_url(&self, mod_id: ID, file_id: ID) -> Result<Url> {
-        Ok(request(
-            self,
-            API_URL_BASE
-                .join("mods/")?
-                .join(&format!("{}/", mod_id))?
-                .join("files/")?
-                .join(&format!("{}/", file_id))?
-                .join("download-url")?,
-        )
-        .await?
-        .json::<Response<Url>>()
-        .await?
-        .data)
+        Ok(self
+            .get(
+                API_URL_BASE
+                    .join("mods/")?
+                    .join(&format!("{}/", mod_id))?
+                    .join("files/")?
+                    .join(&format!("{}/", file_id))?
+                    .join("download-url")?,
+            )
+            .await?
+            .data)
+    }
+
+    /// Get a list of files from the `file_ids` provided
+    ///
+    /// Example:
+    /// ```rust
+    /// # #[tokio::main]
+    /// # async fn main() -> Result<(), furse::Error> {
+    /// # let curseforge = furse::Furse::new(env!("CURSEFORGE_API_KEY"));
+    /// // Get the 2 files
+    /// let files = curseforge.get_files(vec![3144153, 3778436]).await?;
+    /// // The response should have the same amount of files
+    /// assert!(files.len() == 2);
+    /// # Ok(()) }
+    /// ```
+    pub async fn get_files(&self, file_ids: Vec<ID>) -> Result<Vec<File>> {
+        Ok(self
+            .post(
+                API_URL_BASE.join("mods/")?.join("files")?,
+                &GetFilesBody { file_ids },
+            )
+            .await?
+            .data)
     }
 }

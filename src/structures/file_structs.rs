@@ -133,3 +133,10 @@ pub struct FileModule {
     pub name: String,
     pub fingerprint: i64,
 }
+
+#[derive(Deserialize, Serialize, Debug, Clone)]
+#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields)]
+pub struct GetFilesBody {
+    pub file_ids: Vec<ID>,
+}

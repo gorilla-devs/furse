@@ -1,6 +1,5 @@
 use crate::{
-    api_calls::Response,
-    request::{request, API_URL_BASE},
+    request::API_URL_BASE,
     structures::{mod_structs::Mod, ID},
     Furse, Result,
 };
@@ -20,13 +19,10 @@ impl Furse {
     /// # Ok(()) }
     /// ```
     pub async fn get_mod(&self, mod_id: ID) -> Result<Mod> {
-        Ok(
-            request(self, API_URL_BASE.join("mods/")?.join(&mod_id.to_string())?)
-                .await?
-                .json::<Response<Mod>>()
-                .await?
-                .data,
-        )
+        Ok(self
+            .get(API_URL_BASE.join("mods/")?.join(&mod_id.to_string())?)
+            .await?
+            .data)
     }
 
     /// Get the description of mod with ID `mod_id`
@@ -43,16 +39,14 @@ impl Furse {
     /// # Ok(()) }
     /// ```
     pub async fn get_mod_description(&self, mod_id: ID) -> Result<String> {
-        Ok(request(
-            self,
-            API_URL_BASE
-                .join("mods/")?
-                .join(&format!("{}/", mod_id))?
-                .join("description")?,
-        )
-        .await?
-        .json::<Response<String>>()
-        .await?
-        .data)
+        Ok(self
+            .get(
+                API_URL_BASE
+                    .join("mods/")?
+                    .join(&format!("{}/", mod_id))?
+                    .join("description")?,
+            )
+            .await?
+            .data)
     }
 }
