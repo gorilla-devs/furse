@@ -127,12 +127,17 @@ impl Furse {
     /// # Ok(()) }
     /// ```
     pub async fn get_files(&self, file_ids: Vec<ID>) -> Result<Vec<File>> {
-        Ok(self
-            .post(
-                API_URL_BASE.join("mods/")?.join("files")?,
-                &GetFilesBody { file_ids },
-            )
+        let file_ids = GetFilesBody { file_ids };
+        let mut files: Vec<File> = self
+            .post(API_URL_BASE.join("mods/")?.join("files")?, &file_ids)
             .await?
-            .data)
+            .data;
+        let mut actual_files = Vec::new();
+        for file_id in file_ids.file_ids {
+            if let Some(index) = files.iter().position(|file| file.id == file_id) {
+                actual_files.push(files.swap_remove(index));
+            }
+        }
+        Ok(actual_files)
     }
 }
