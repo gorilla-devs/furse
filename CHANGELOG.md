@@ -1,5 +1,10 @@
 # Changelog
 
+## `1.2.3`
+### 31.05.2022
+
+Add the Quilt mod loader to `ModLoaderType`
+
 ## `1.1.2`
 ### 14.05.2022
 
