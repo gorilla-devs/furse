@@ -1,5 +1,11 @@
 # Changelog
 
+## `1.3.0`
+### 03.06.2022
+
+- Replaced the mess of number types in `structures` with `Number` which is an alias for `usize`
+- Added the `get_fingerprint_matches()` fingerprint call and it's relevant structs
+
 ## `1.2.3`
 ### 31.05.2022
 

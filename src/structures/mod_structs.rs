@@ -1,7 +1,7 @@
 use super::{
     common_structs::Category,
     file_structs::{File, FileIndex},
-    Datetime, ID,
+    Datetime, Number, ID,
 };
 use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
@@ -26,7 +26,7 @@ pub struct Mod {
     /// Current mod status
     pub status: ModStatus,
     /// Number of downloads for the mod
-    pub download_count: f32,
+    pub download_count: Number,
     /// Whether the mod is included in the featured mods list
     pub is_featured: bool,
     /// The main category of the mod as it was chosen by the mod author
@@ -34,7 +34,7 @@ pub struct Mod {
     /// List of categories that this mod is related to
     pub categories: Vec<Category>,
     /// The class id this mod belongs to
-    pub class_id: Option<i32>,
+    pub class_id: Option<Number>,
     /// List of the mod's authors
     pub authors: Vec<ModAuthor>,
     /// The mod's logo asset
@@ -56,11 +56,11 @@ pub struct Mod {
     /// Is mod allowed to be distributed
     pub allow_mod_distribution: Option<bool>,
     /// The mod popularity rank for the game
-    pub game_popularity_rank: i32,
+    pub game_popularity_rank: Number,
     /// Is the mod available for search. This can be false when a mod is experimental, in a deleted state or has only alpha files
     pub is_available: bool,
     /// The mod's thumbs up count
-    pub thumbs_up_count: Option<i32>,
+    pub thumbs_up_count: Option<Number>,
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone)]

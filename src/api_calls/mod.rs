@@ -1,4 +1,5 @@
 pub mod file_calls;
+pub mod fingerprint_calls;
 pub mod mod_calls;
 use super::structures::common_structs::Pagination;
 use serde::{Deserialize, Serialize};

@@ -49,13 +49,13 @@ pub struct SortableGameVersion {
 #[serde(deny_unknown_fields)]
 pub struct Pagination {
     /// A zero based index of the first item that is included in the response
-    pub index: u32,
+    pub index: Number,
     /// The requested number of items to be included in the response
-    pub page_size: u32,
+    pub page_size: Number,
     /// The actual number of items that were included in the response
-    pub result_count: u32,
+    pub result_count: Number,
     /// The total number of items available in the request
-    pub total_count: Option<u64>,
+    pub total_count: Option<Number>,
 }
 
 #[derive(Deserialize_repr, Serialize_repr, Debug, Clone, PartialEq, Eq)]
