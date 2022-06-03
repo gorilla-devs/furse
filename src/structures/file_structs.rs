@@ -1,6 +1,6 @@
 use super::{
     common_structs::{ModLoaderType, SortableGameVersion},
-    Datetime, ID,
+    *,
 };
 use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
@@ -31,9 +31,9 @@ pub struct File {
     /// The file timestamp
     pub file_date: Datetime,
     /// The file length in bytes
-    pub file_length: u64,
+    pub file_length: Number,
     /// The number of downloads for the file
-    pub download_count: u64,
+    pub download_count: Number,
     /// The file download URL.
     /// Is null if the mod has disabled mod distribution
     pub download_url: Option<String>,
@@ -48,7 +48,7 @@ pub struct File {
     pub alternate_file_id: Option<ID>,
     pub is_server_pack: Option<bool>,
     pub server_pack_file_id: Option<ID>,
-    pub file_fingerprint: u64,
+    pub file_fingerprint: Number,
     pub modules: Vec<FileModule>,
 }
 
@@ -131,7 +131,7 @@ pub enum FileRelationType {
 #[serde(deny_unknown_fields)]
 pub struct FileModule {
     pub name: String,
-    pub fingerprint: i64,
+    pub fingerprint: Number,
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
