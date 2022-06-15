@@ -6,10 +6,22 @@ use crate::{
 use bytes::Bytes;
 use murmur2::murmur2;
 
+/// Calculate the CurseForge fingerprint for the `bytes` provided
+///
+/// CurseForge uses a modified version of murmur2 where some bytes are stripped,
+/// and the resulting bytes are hashes with seed `1`
+pub fn cf_fingerprint(mut bytes: Bytes) -> usize {
+    // Implement CF's murmur2 modification
+    bytes = bytes
+        .into_iter()
+        .filter(|&x| !matches!(x, 9 | 10 | 13 | 32))
+        .collect::<Bytes>();
+    // Hash the contents using seed `1`
+    murmur2(&bytes, 1) as usize
+}
+
 impl Furse {
-    /// Get file structs from the `file_contents` provided.
-    /// The fingerprints will be calculated by this function because they are a
-    /// modified version of murmur2 which is not documented by CurseForge
+    /// Get file structs from the `fingerprints` provided.
     ///
     /// Example:
     /// ```rust
@@ -23,26 +35,18 @@ impl Furse {
     ///     .await?
     ///     .bytes()
     ///     .await?;
+    /// // Hash the contents
+    /// let fingerprint = furse::cf_fingerprint(contents);
     /// // Get the fingerprint matches
-    /// let matches = curseforge.get_fingerprint_matches(vec![contents]).await?.exact_matches;
+    /// let matches = curseforge.get_fingerprint_matches(vec![fingerprint]).await?.exact_matches;
     /// // The resulting file should have the same ID
     /// assert!(matches[0].file.id == terralith_file.id);
     /// # Ok(()) }
     /// ```
     pub async fn get_fingerprint_matches(
         &self,
-        file_contents: Vec<Bytes>,
+        fingerprints: Vec<usize>,
     ) -> Result<FingerprintMatches> {
-        let mut fingerprints = Vec::new();
-        for contents in file_contents {
-            // Implement CF's murmur2 modification
-            let contents = contents
-                .into_iter()
-                .filter(|&x| !matches!(x, 9 | 10 | 13 | 32))
-                .collect::<Bytes>();
-            // Hash the contents using seed `1`
-            fingerprints.push(murmur2(&contents, 1) as usize);
-        }
         Ok(self
             .post(
                 API_URL_BASE.join("fingerprints")?,

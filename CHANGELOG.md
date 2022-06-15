@@ -1,5 +1,11 @@
 # Changelog
 
+## `1.4.0`
+### 15.06.2022
+
+- Dependencies are specified with `~`
+- Extract the fingerprint calculation to a separate function
+
 ## `1.3.0`
 ### 03.06.2022
 

@@ -23,6 +23,7 @@
 mod api_calls;
 mod request;
 pub mod structures;
+pub use api_calls::fingerprint_calls::cf_fingerprint;
 
 #[derive(thiserror::Error, Debug)]
 pub enum Error {
