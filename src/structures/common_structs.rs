@@ -1,4 +1,5 @@
 use super::*;
+use reqwest::Url;
 use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
 
@@ -15,9 +16,9 @@ pub struct Category {
     /// The category slug as it appear in the URL
     pub slug: String,
     /// The category URL
-    pub url: String,
+    pub url: Url,
     /// URL for the category icon
-    pub icon_url: String,
+    pub icon_url: Url,
     /// Last modified date of the category
     pub date_modified: Datetime,
     /// A top level category for other categories

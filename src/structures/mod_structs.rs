@@ -3,6 +3,7 @@ use super::{
     file_structs::{File, FileIndex},
     Datetime, Number, ID,
 };
+use reqwest::Url;
 use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
 use std::clone::Clone;
@@ -67,10 +68,10 @@ pub struct Mod {
 #[serde(rename_all = "camelCase")]
 #[serde(deny_unknown_fields)]
 pub struct ModLinks {
-    pub website_url: String,
-    pub wiki_url: Option<String>,
-    pub issues_url: Option<String>,
-    pub source_url: Option<String>,
+    pub website_url: Url,
+    pub wiki_url: Option<Url>,
+    pub issues_url: Option<Url>,
+    pub source_url: Option<Url>,
 }
 
 #[derive(Deserialize_repr, Serialize_repr, Debug, Clone, PartialEq, Eq)]
@@ -94,7 +95,7 @@ pub enum ModStatus {
 pub struct ModAuthor {
     pub id: ID,
     pub name: String,
-    pub url: String,
+    pub url: Url,
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
@@ -105,6 +106,6 @@ pub struct ModAsset {
     pub mod_id: ID,
     pub title: String,
     pub description: String,
-    pub thumbnail_url: String,
-    pub url: String,
+    pub thumbnail_url: Url,
+    pub url: Url,
 }

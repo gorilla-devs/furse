@@ -2,6 +2,7 @@ use super::{
     common_structs::{ModLoaderType, SortableGameVersion},
     *,
 };
+use reqwest::Url;
 use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
 use std::clone::Clone;
@@ -36,7 +37,7 @@ pub struct File {
     pub download_count: Number,
     /// The file download URL.
     /// Is null if the mod has disabled mod distribution
-    pub download_url: Option<String>,
+    pub download_url: Option<Url>,
     /// List of game versions this file is relevant for
     pub game_versions: Vec<String>,
     /// Metadata used for sorting by game versions
