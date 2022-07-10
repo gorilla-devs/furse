@@ -1,12 +1,8 @@
 use super::{
     common_structs::Category,
     file_structs::{File, FileIndex},
-    Datetime, Number, ID,
+    *,
 };
-use reqwest::Url;
-use serde::{Deserialize, Serialize};
-use serde_repr::{Deserialize_repr, Serialize_repr};
-use std::clone::Clone;
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
@@ -49,11 +45,11 @@ pub struct Mod {
     /// List of file related details for the latest files of the mod
     pub latest_files_indexes: Vec<FileIndex>,
     /// The creation date of the mod
-    pub date_created: Datetime,
+    pub date_created: UtcTime,
     /// The last time the mod was modified
-    pub date_modified: Datetime,
+    pub date_modified: UtcTime,
     /// The release date of the mod
-    pub date_released: Datetime,
+    pub date_released: UtcTime,
     /// Is mod allowed to be distributed
     pub allow_mod_distribution: Option<bool>,
     /// The mod popularity rank for the game

@@ -1,7 +1,4 @@
 use super::*;
-use reqwest::Url;
-use serde::{Deserialize, Serialize};
-use serde_repr::{Deserialize_repr, Serialize_repr};
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
@@ -20,7 +17,7 @@ pub struct Category {
     /// URL for the category icon
     pub icon_url: Url,
     /// Last modified date of the category
-    pub date_modified: Datetime,
+    pub date_modified: UtcTime,
     /// A top level category for other categories
     pub is_class: Option<bool>,
     /// The class id of the category, meaning - the class of which this category is under
@@ -40,7 +37,7 @@ pub struct SortableGameVersion {
     /// game version clean name (e.g. 1.5)
     pub game_version: String,
     /// Game version release date
-    pub game_version_release_date: Datetime,
+    pub game_version_release_date: UtcTime,
     /// Game version type id
     pub game_version_type_id: Option<ID>,
 }

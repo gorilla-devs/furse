@@ -2,10 +2,6 @@ use super::{
     common_structs::{ModLoaderType, SortableGameVersion},
     *,
 };
-use reqwest::Url;
-use serde::{Deserialize, Serialize};
-use serde_repr::{Deserialize_repr, Serialize_repr};
-use std::clone::Clone;
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
@@ -30,7 +26,7 @@ pub struct File {
     /// The file hash (i.e. md5 or sha1)
     pub hashes: Vec<FileHash>,
     /// The file timestamp
-    pub file_date: Datetime,
+    pub file_date: UtcTime,
     /// The file length in bytes
     pub file_length: Number,
     /// The number of downloads for the file
