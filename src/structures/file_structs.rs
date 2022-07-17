@@ -3,6 +3,8 @@ use super::{
     *,
 };
 
+use crate::serde_utils::empty_string_is_none;
+
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 #[serde(deny_unknown_fields)]
@@ -33,6 +35,7 @@ pub struct File {
     pub download_count: Number,
     /// The file download URL.
     /// Is null if the mod has disabled mod distribution
+    #[serde(deserialize_with = "empty_string_is_none")]
     pub download_url: Option<Url>,
     /// List of game versions this file is relevant for
     pub game_versions: Vec<String>,

@@ -4,6 +4,8 @@ use super::{
     *,
 };
 
+use crate::serde_utils::empty_string_is_none;
+
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 #[serde(deny_unknown_fields)]
@@ -65,8 +67,11 @@ pub struct Mod {
 #[serde(deny_unknown_fields)]
 pub struct ModLinks {
     pub website_url: Url,
+    #[serde(deserialize_with = "empty_string_is_none")]
     pub wiki_url: Option<Url>,
+    #[serde(deserialize_with = "empty_string_is_none")]
     pub issues_url: Option<Url>,
+    #[serde(deserialize_with = "empty_string_is_none")]
     pub source_url: Option<Url>,
 }
 

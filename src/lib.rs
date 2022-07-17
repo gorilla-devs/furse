@@ -22,6 +22,8 @@
 
 mod api_calls;
 mod request;
+mod serde_utils;
+
 pub mod structures;
 pub use api_calls::fingerprint_calls::cf_fingerprint;
 
