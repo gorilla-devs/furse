@@ -1,12 +1,8 @@
 use crate::{
     request::API_URL_BASE,
-    structures::{
-        file_structs::{File, GetFilesBody},
-        ID,
-    },
+    structures::{file_structs::*, ID},
     Furse, Result,
 };
-use reqwest::Url;
 
 impl Furse {
     /// Get the files of mod with `mod_id`
@@ -99,7 +95,7 @@ impl Furse {
     /// assert!(Some(download_url) == terralith_mod_file.download_url);
     /// # Ok(()) }
     /// ```
-    pub async fn file_download_url(&self, mod_id: ID, file_id: ID) -> Result<Url> {
+    pub async fn file_download_url(&self, mod_id: ID, file_id: ID) -> Result<url::Url> {
         Ok(self
             .get(
                 API_URL_BASE

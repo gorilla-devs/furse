@@ -31,6 +31,7 @@ pub struct File {
     pub file_length: Number,
     /// The number of downloads for the file
     pub download_count: Number,
+    #[serde(deserialize_with = "deserialise_optional_url")]
     /// The file download URL.
     /// Is null if the mod has disabled mod distribution
     pub download_url: Option<Url>,

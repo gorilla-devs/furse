@@ -1,6 +1,6 @@
 use crate::{
     request::API_URL_BASE,
-    structures::{mod_structs::Mod, ID},
+    structures::{mod_structs::*, ID},
     Furse, Result,
 };
 

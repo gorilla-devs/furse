@@ -65,8 +65,11 @@ pub struct Mod {
 #[serde(deny_unknown_fields)]
 pub struct ModLinks {
     pub website_url: Url,
+    #[serde(deserialize_with = "deserialise_optional_url")]
     pub wiki_url: Option<Url>,
+    #[serde(deserialize_with = "deserialise_optional_url")]
     pub issues_url: Option<Url>,
+    #[serde(deserialize_with = "deserialise_optional_url")]
     pub source_url: Option<Url>,
 }
 

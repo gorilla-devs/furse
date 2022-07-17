@@ -4,7 +4,7 @@ pub mod mod_calls;
 use super::structures::common_structs::Pagination;
 use serde::{Deserialize, Serialize};
 
-// CurseForge returns API responses in a 'response' json structure with the actual results in `body` and `pagination`s too
+// API responses are returned in this 'response' json structure with the actual results in `data` and optional `pagination`
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 #[serde(deny_unknown_fields)]

@@ -1,8 +1,4 @@
-use crate::{
-    request::API_URL_BASE,
-    structures::fingerprint_structs::{FingerprintMatches, GetFingerprintMatchesBody},
-    Furse, Result,
-};
+use crate::{request::API_URL_BASE, structures::fingerprint_structs::*, Furse, Result};
 use bytes::Bytes;
 use murmur2::murmur2;
 
