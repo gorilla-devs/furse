@@ -32,7 +32,7 @@ impl Furse {
     ///     .bytes()
     ///     .await?;
     /// // Hash the contents
-    /// let fingerprint = furse::cf_fingerprint(contents);
+    /// let fingerprint = furse::cf_fingerprint(&contents);
     /// // Get the fingerprint matches
     /// let matches = curseforge.get_fingerprint_matches(vec![fingerprint]).await?.exact_matches;
     /// // The resulting file should have the same ID
