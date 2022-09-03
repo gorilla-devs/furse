@@ -1,5 +1,11 @@
 # Changelog
 
+## `1.5.3`
+### 03.09.2022
+
+- Update dependencies
+- Remove `bytes` dependency
+
 ## `1.5.1`
 ### 10.07.2022
 

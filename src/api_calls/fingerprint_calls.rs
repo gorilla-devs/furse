@@ -1,17 +1,17 @@
 use crate::{request::API_URL_BASE, structures::fingerprint_structs::*, Furse, Result};
-use bytes::Bytes;
 use murmur2::murmur2;
 
 /// Calculate the CurseForge fingerprint for the `bytes` provided
 ///
 /// CurseForge uses a modified version of murmur2 where some bytes are stripped,
 /// and the resulting bytes are hashes with seed `1`
-pub fn cf_fingerprint(mut bytes: Bytes) -> usize {
+pub fn cf_fingerprint(bytes: &[u8]) -> usize {
     // Implement CF's murmur2 modification
-    bytes = bytes
-        .into_iter()
-        .filter(|&x| !matches!(x, 9 | 10 | 13 | 32))
-        .collect::<Bytes>();
+    let bytes = bytes
+        .iter()
+        .filter(|x| !matches!(x, 9 | 10 | 13 | 32))
+        .copied()
+        .collect::<Vec<u8>>();
     // Hash the contents using seed `1`
     murmur2(&bytes, 1) as usize
 }
