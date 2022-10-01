@@ -1,6 +1,6 @@
 [package]
 name = "furse"
-version = "1.5.4"
+version = "1.5.5"
 edition = "2021"
 authors = ["Ilesh Thiada <ileshkt@gmail.com>"]
 description = "A simple Rust wrapper for the official CurseForge API"
@@ -17,7 +17,7 @@ reqwest = { version = "~0.11.12", default-features = false, features = [
 ] }
 serde = { version = "~1.0.145", features = ["derive"] }
 chrono = { version = "~0.4.22", features = ["serde"] }
-url = { version = "~2.3.1", features = ["serde"] }
+url = { version = "~2.2.2", features = ["serde"] }
 lazy_static = "~1.4.0"
 serde_repr = "~0.1.9"
 thiserror = "~1.0.37"
