@@ -3,6 +3,7 @@ use crate::{
     structures::{mod_structs::*, ID},
     Furse, Result,
 };
+use serde::{Deserialize, Serialize};
 
 impl Furse {
     /// Get mod with ID `mod_id`
@@ -21,6 +22,35 @@ impl Furse {
     pub async fn get_mod(&self, mod_id: ID) -> Result<Mod> {
         Ok(self
             .get(API_URL_BASE.join("mods/")?.join(&mod_id.to_string())?)
+            .await?
+            .data)
+    }
+
+    /// Get multiple mods with IDs `mod_ids`
+    ///
+    /// Example:
+    /// ```rust
+    /// # #[tokio::main]
+    /// # async fn main() -> Result<(), furse::Error> {
+    /// # let curseforge = furse::Furse::new(env!("CURSEFORGE_API_KEY"));
+    /// // Get Xaero's minimap and worldmap mods
+    /// let mods = curseforge.get_mods(vec![263420, 317780]).await?;
+    /// // Check that both are made by `xaero96`
+    /// assert!(mods[0].authors[0].name == "xaero96" && mods[1].authors[0].name == "xaero96");
+    /// # Ok(()) }
+    /// ```
+    pub async fn get_mods(&self, mod_ids: Vec<ID>) -> Result<Vec<Mod>> {
+        #[derive(Deserialize, Serialize, Debug, Clone)]
+        #[serde(rename_all = "camelCase")]
+        #[serde(deny_unknown_fields)]
+        struct GetModsByIdsListRequestBody {
+            mod_ids: Vec<ID>,
+        }
+        Ok(self
+            .post(
+                API_URL_BASE.join("mods")?,
+                &GetModsByIdsListRequestBody { mod_ids },
+            )
             .await?
             .data)
     }
