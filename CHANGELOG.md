@@ -1,5 +1,12 @@
 # Changelog
 
+## `1.5.6`
+### 12.11.2022
+
+- Update dependencies
+- Get `get_mods` API call
+- Remove redundant doc comments
+
 ## `1.5.3`
 ### 03.09.2022
 

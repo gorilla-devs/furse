@@ -7,39 +7,31 @@ use super::{
 #[serde(rename_all = "camelCase")]
 #[serde(deny_unknown_fields)]
 pub struct File {
-    /// The file id
     pub id: ID,
-    /// The game id related to the mod that this file belongs to
+    /// The game ID of the mod that this file belongs to
     pub game_id: ID,
-    /// The mod id
     pub mod_id: ID,
-    /// Whether the file is available to download
     pub is_available: bool,
-    /// Display name of the file
     pub display_name: String,
     /// Exact file name
     pub file_name: String,
-    /// The file release type
     pub release_type: FileReleaseType,
-    /// Status of the file
     pub file_status: FileStatus,
-    /// The file hash (i.e. md5 or sha1)
+    /// The file hash (md5 or sha1)
     pub hashes: Vec<FileHash>,
-    /// The file timestamp
     pub file_date: UtcTime,
     /// The file length in bytes
     pub file_length: Number,
     /// The number of downloads for the file
     pub download_count: Number,
-    #[serde(deserialize_with = "deserialise_optional_url")]
     /// The file download URL.
-    /// Is null if the mod has disabled mod distribution
+    /// Null if the mod has disabled mod distribution
+    #[serde(deserialize_with = "deserialise_optional_url")]
     pub download_url: Option<Url>,
-    /// List of game versions this file is relevant for
+    /// List of game versions this file works on
     pub game_versions: Vec<String>,
     /// Metadata used for sorting by game versions
     pub sortable_game_versions: Vec<SortableGameVersion>,
-    /// List of dependencies files
     pub dependencies: Vec<FileDependency>,
     pub expose_as_alternative: Option<bool>,
     pub parent_project_file_id: Option<ID>,

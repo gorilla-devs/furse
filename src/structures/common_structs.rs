@@ -4,7 +4,6 @@ use super::*;
 #[serde(rename_all = "camelCase")]
 #[serde(deny_unknown_fields)]
 pub struct Category {
-    /// The category id
     pub id: ID,
     /// The game id related to the category
     pub game_id: ID,
@@ -12,18 +11,17 @@ pub struct Category {
     pub name: String,
     /// The category slug as it appear in the URL
     pub slug: String,
-    /// The category URL
     pub url: Url,
     /// URL for the category icon
     pub icon_url: Url,
     /// Last modified date of the category
     pub date_modified: UtcTime,
-    /// A top level category for other categories
+    /// Whether this is a top level category for other categories
     pub is_class: Option<bool>,
-    /// The class id of the category, meaning - the class of which this category is under
+    /// The class which this category is under
     pub class_id: Option<ID>,
-    /// The parent category for this category
     pub parent_category_id: Option<ID>,
+    pub display_index: Option<Number>,
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
@@ -32,13 +30,11 @@ pub struct Category {
 pub struct SortableGameVersion {
     /// Original version name (e.g. 1.5b)
     pub game_version_name: String,
-    /// Used for sorting (e.g. 0000000001.0000000005)
+    /// Padded version used for sorting (e.g. 0000000001.0000000005)
     pub game_version_padded: String,
-    /// game version clean name (e.g. 1.5)
+    /// Clean version (e.g. 1.5)
     pub game_version: String,
-    /// Game version release date
     pub game_version_release_date: UtcTime,
-    /// Game version type id
     pub game_version_type_id: Option<ID>,
 }
 
@@ -46,14 +42,14 @@ pub struct SortableGameVersion {
 #[serde(rename_all = "camelCase")]
 #[serde(deny_unknown_fields)]
 pub struct Pagination {
-    /// A zero based index of the first item that is included in the response
+    /// A zero based index of the first item included in the response
     pub index: Number,
     /// The requested number of items to be included in the response
     pub page_size: Number,
     /// The actual number of items that were included in the response
     pub result_count: Number,
     /// The total number of items available in the request
-    pub total_count: Option<Number>,
+    pub total_count: Number,
 }
 
 #[derive(Deserialize_repr, Serialize_repr, Debug, Clone, PartialEq, Eq)]
