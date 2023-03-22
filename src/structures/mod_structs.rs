@@ -58,6 +58,7 @@ pub struct Mod {
     pub is_available: bool,
     /// The mod's thumbs up count
     pub thumbs_up_count: Option<Number>,
+    pub latest_early_access_files_indexes: Option<Vec<String>>,
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
