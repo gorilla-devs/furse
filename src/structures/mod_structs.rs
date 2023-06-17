@@ -6,23 +6,17 @@ use super::{
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
-#[serde(deny_unknown_fields)]
 pub struct Mod {
-    /// The mod ID
     pub id: ID,
     /// The game ID this mod is for
     pub game_id: ID,
-    /// The name of the mod
     pub name: String,
     /// The mod slug that would appear in the URL
     pub slug: String,
-    /// Relevant links for the mod such as Issue tracker and Wiki
+    /// Relevant links for the mod such as the issue tracker and wiki
     pub links: ModLinks,
-    /// Mod summary
     pub summary: String,
-    /// Current mod status
     pub status: ModStatus,
-    /// Number of downloads for the mod
     pub download_count: Number,
     /// Whether the mod is included in the featured mods list
     pub is_featured: bool,
@@ -30,7 +24,7 @@ pub struct Mod {
     pub primary_category_id: ID,
     /// List of categories that this mod is related to
     pub categories: Vec<Category>,
-    /// The class id this mod belongs to
+    /// The class ID this mod belongs to
     pub class_id: Option<Number>,
     /// List of the mod's authors
     pub authors: Vec<ModAuthor>,
@@ -54,17 +48,18 @@ pub struct Mod {
     pub allow_mod_distribution: Option<bool>,
     /// The mod popularity rank for the game
     pub game_popularity_rank: Number,
-    /// Is the mod available for search. This can be false when a mod is experimental, in a deleted state or has only alpha files
+    /// Is the mod available for search.
+    /// This can be false when a mod is experimental, in a deleted state, or has only alpha files.
     pub is_available: bool,
     /// The mod's thumbs up count
     pub thumbs_up_count: Option<Number>,
-    pub latest_early_access_files_indexes: Option<Vec<String>>,
+    pub latest_early_access_files_indexes: Vec<String>,
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
-#[serde(deny_unknown_fields)]
 pub struct ModLinks {
+    /// A link to the mod's CurseForge page
     pub website_url: Url,
     #[serde(deserialize_with = "deserialise_optional_url")]
     pub wiki_url: Option<Url>,
@@ -91,7 +86,6 @@ pub enum ModStatus {
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
-#[serde(deny_unknown_fields)]
 pub struct ModAuthor {
     pub id: ID,
     pub name: String,
@@ -100,7 +94,6 @@ pub struct ModAuthor {
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
-#[serde(deny_unknown_fields)]
 pub struct ModAsset {
     pub id: ID,
     pub mod_id: ID,

@@ -1,5 +1,12 @@
 # Changelog
 
+## `1.5.10`
+### 17.06.2023
+
+- Remove `deny_unknown_fields`
+- Update dependencies, replace `lazy_static` with `once_cell`
+- Update fields and documentation
+
 ## `1.5.6`
 ### 12.11.2022
 
@@ -57,7 +64,6 @@ Make the `logo` field of `Mod` nullable because CurseForge is having an issue wh
 ```rust
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
-#[serde(deny_unknown_fields)]
 ```
 - All enums consistently use the following:
 ```rust

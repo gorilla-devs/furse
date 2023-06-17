@@ -42,7 +42,6 @@ impl Furse {
     pub async fn get_mods(&self, mod_ids: Vec<ID>) -> Result<Vec<Mod>> {
         #[derive(Deserialize, Serialize, Debug, Clone)]
         #[serde(rename_all = "camelCase")]
-        #[serde(deny_unknown_fields)]
         struct GetModsByIdsListRequestBody {
             mod_ids: Vec<ID>,
         }

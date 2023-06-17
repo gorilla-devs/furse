@@ -3,7 +3,6 @@ use std::collections::HashMap;
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
-#[serde(deny_unknown_fields)]
 pub struct FingerprintMatches {
     pub is_cache_built: bool,
     /// The matches found
@@ -19,7 +18,6 @@ pub struct FingerprintMatches {
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
-#[serde(deny_unknown_fields)]
 pub struct Match {
     /// The ID of the mod this match is from
     pub id: ID,
@@ -31,7 +29,6 @@ pub struct Match {
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
-#[serde(deny_unknown_fields)]
 pub struct GetFingerprintMatchesBody {
     pub fingerprints: Vec<Number>,
 }

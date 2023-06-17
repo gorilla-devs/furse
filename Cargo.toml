@@ -1,6 +1,6 @@
 [package]
 name = "furse"
-version = "1.5.9"
+version = "1.5.10"
 edition = "2021"
 authors = ["Ilesh Thiada <ileshkt@gmail.com>"]
 description = "A simple Rust wrapper for the official CurseForge API"
@@ -11,17 +11,17 @@ keywords = ["curseforge", "minecraft", "modding"]
 categories = ["api-bindings"]
 
 [dependencies]
-reqwest = { version = "0", default-features = false, features = [
+reqwest = { version = "0.11", default-features = false, features = [
     "json",
     "rustls-tls",
 ] }
-serde = { version = "1", features = ["derive"] }
-chrono = { version = "0", features = ["serde"] }
-url = { version = "2", features = ["serde"] }
-lazy_static = "1"
-serde_repr = "0"
-thiserror = "1"
-murmur2 = "0"
+chrono = { version = "0.4", features = ["serde"] }
+serde = { version = "1.0", features = ["derive"] }
+url = { version = "2.4", features = ["serde"] }
+serde_repr = "0.1"
+once_cell = "1.18"
+thiserror = "1.0"
+murmur2 = "0.1"
 
 [dev-dependencies]
-tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
+tokio = { version = "1.28", features = ["rt-multi-thread", "macros"] }

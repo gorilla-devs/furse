@@ -2,12 +2,10 @@ use super::*;
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
-#[serde(deny_unknown_fields)]
 pub struct Category {
     pub id: ID,
-    /// The game id related to the category
+    /// The game ID related to the category
     pub game_id: ID,
-    /// Category name
     pub name: String,
     /// The category slug as it appear in the URL
     pub slug: String,
@@ -18,7 +16,7 @@ pub struct Category {
     pub date_modified: UtcTime,
     /// Whether this is a top level category for other categories
     pub is_class: Option<bool>,
-    /// The class which this category is under
+    /// The ID of the class which this category is under
     pub class_id: Option<ID>,
     pub parent_category_id: Option<ID>,
     pub display_index: Option<Number>,
@@ -26,7 +24,6 @@ pub struct Category {
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
-#[serde(deny_unknown_fields)]
 pub struct SortableGameVersion {
     /// Original version name (e.g. 1.5b)
     pub game_version_name: String,
@@ -40,15 +37,14 @@ pub struct SortableGameVersion {
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
-#[serde(deny_unknown_fields)]
 pub struct Pagination {
-    /// A zero based index of the first item included in the response
+    /// The index of the first item included in the response
     pub index: Number,
     /// The requested number of items to be included in the response
     pub page_size: Number,
     /// The actual number of items that were included in the response
     pub result_count: Number,
-    /// The total number of items available in the request
+    /// The total number of items available
     pub total_count: Number,
 }
 
