@@ -1,6 +1,6 @@
 [package]
 name = "furse"
-version = "1.5.10"
+version = "1.5.11"
 edition = "2021"
 authors = ["Ilesh Thiada <ileshkt@gmail.com>"]
 description = "A simple Rust wrapper for the official CurseForge API"
@@ -24,4 +24,4 @@ thiserror = "1.0"
 murmur2 = "0.1"
 
 [dev-dependencies]
-tokio = { version = "1.28", features = ["rt-multi-thread", "macros"] }
+tokio = { version = "1.29", features = ["rt-multi-thread", "macros"] }
