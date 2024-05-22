@@ -36,7 +36,7 @@ impl Furse {
     /// // Get the fingerprint matches
     /// let matches = curseforge.get_fingerprint_matches(vec![fingerprint]).await?.exact_matches;
     /// // The resulting file should have the same ID
-    /// assert!(matches[0].file.id == terralith_file.id);
+    /// assert_eq!(matches[0].file.id, terralith_file.id);
     /// # Ok(()) }
     /// ```
     pub async fn get_fingerprint_matches(

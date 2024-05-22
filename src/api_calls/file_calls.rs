@@ -92,7 +92,7 @@ impl Furse {
     /// // Get the file's download url
     /// let download_url = curseforge.file_download_url(513688, 3606078).await?;
     /// // They should be the same url
-    /// assert!(Some(download_url) == terralith_mod_file.download_url);
+    /// assert_eq!(Some(download_url), terralith_mod_file.download_url);
     /// # Ok(()) }
     /// ```
     pub async fn file_download_url(&self, mod_id: ID, file_id: ID) -> Result<url::Url> {
@@ -119,7 +119,7 @@ impl Furse {
     /// // Get the 2 files
     /// let files = curseforge.get_files(vec![3144153, 3778436]).await?;
     /// // The response should have the same amount of files
-    /// assert!(files.len() == 2);
+    /// assert_eq!(files.len(), 2);
     /// # Ok(()) }
     /// ```
     pub async fn get_files(&self, file_ids: Vec<ID>) -> Result<Vec<File>> {

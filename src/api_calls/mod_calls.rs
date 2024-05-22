@@ -16,7 +16,7 @@ impl Furse {
     /// // Get the Terralith mod
     /// let terralith_mod = curseforge.get_mod(513688).await?;
     /// // Check that it is made by Starmute
-    /// assert!(terralith_mod.authors[0].name == "Starmute");
+    /// assert_eq!(terralith_mod.authors[0].name, "Starmute");
     /// # Ok(()) }
     /// ```
     pub async fn get_mod(&self, mod_id: ID) -> Result<Mod> {
@@ -36,7 +36,8 @@ impl Furse {
     /// // Get Xaero's minimap and worldmap mods
     /// let mods = curseforge.get_mods(vec![263420, 317780]).await?;
     /// // Check that both are made by `xaero96`
-    /// assert!(mods[0].authors[0].name == "xaero96" && mods[1].authors[0].name == "xaero96");
+    /// assert_eq!(mods[0].authors[0].name, "xaero96");
+    /// assert_eq!(mods[1].authors[0].name, "xaero96");
     /// # Ok(()) }
     /// ```
     pub async fn get_mods(&self, mod_ids: Vec<ID>) -> Result<Vec<Mod>> {

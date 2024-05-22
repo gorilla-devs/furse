@@ -99,6 +99,6 @@ pub struct ModAsset {
     pub mod_id: ID,
     pub title: String,
     pub description: String,
-    pub thumbnail_url: Url,
+    pub thumbnail_url: String,
     pub url: Url,
 }
