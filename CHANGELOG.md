@@ -1,5 +1,16 @@
 # Changelog
 
+## `1.6.0`
+### 31.03.2025
+
+- Remove `once_cell` and use `std::LazyLock` instead, and bump `thiserror` to `2.0`
+- Improve and update README
+- Update doc-tests to use `tokio_test::block_on`
+- Improve structs and API call documentation and examples
+- Change the API of `Furse.get_files()` to return a vector of `Option<File>`s to account for files that were not found
+- Derive `Copy` wherever possible
+- Update missing fields/variants in structs/enums
+
 ## `1.5.10`
 ### 17.06.2023
 
