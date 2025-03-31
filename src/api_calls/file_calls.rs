@@ -118,6 +118,12 @@ impl Furse {
     /// # Ok::<_, furse::Error>(()) }).unwrap()
     /// ```
     pub async fn get_files(&self, file_ids: Vec<ID>) -> Result<Vec<File>> {
+        #[derive(serde::Serialize)]
+        #[serde(rename_all = "camelCase")]
+        struct GetFilesBody {
+            file_ids: Vec<ID>,
+        }
+
         let file_ids = GetFilesBody { file_ids };
         let mut files: Vec<File> = self
             .post(API_URL_BASE.join("mods/")?.join("files")?, &file_ids)

@@ -1,5 +1,4 @@
 use super::{
-    common_structs::Category,
     file_structs::{File, FileIndex},
     *,
 };

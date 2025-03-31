@@ -1,5 +1,4 @@
 use super::{file_structs::File, *};
-use std::collections::HashMap;
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
@@ -10,7 +9,7 @@ pub struct FingerprintMatches {
     /// The fingerprints of the matches found
     pub exact_fingerprints: Vec<Number>,
     pub partial_matches: Vec<Match>,
-    pub partial_match_fingerprints: HashMap<String, Vec<Number>>,
+    pub partial_match_fingerprints: std::collections::HashMap<String, Vec<Number>>,
     /// The fingerprints that were requested
     pub installed_fingerprints: Vec<Number>,
     pub unmatched_fingerprints: Option<Vec<Number>>,
@@ -19,10 +18,9 @@ pub struct FingerprintMatches {
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Match {
-    /// The ID of the mod this match is from
+    /// The ID of the mod
     pub id: ID,
-    /// The file the fingerprint was matched too
     pub file: File,
-    /// The latest files of this mod
+    /// The mod's latest files
     pub latest_files: Vec<File>,
 }

@@ -1,7 +1,4 @@
-use super::{
-    common_structs::{ModLoaderType, SortableGameVersion},
-    *,
-};
+use super::*;
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
@@ -124,10 +121,4 @@ pub enum FileRelationType {
 pub struct FileModule {
     pub name: String,
     pub fingerprint: Number,
-}
-
-#[derive(Deserialize, Serialize, Debug, Clone)]
-#[serde(rename_all = "camelCase")]
-pub struct GetFilesBody {
-    pub file_ids: Vec<ID>,
 }

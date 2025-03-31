@@ -7,6 +7,7 @@ pub type UtcTime = chrono::DateTime<chrono::Utc>;
 pub type Number = i64;
 pub type ID = i32;
 
+use common_structs::*;
 use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
 use url::Url;

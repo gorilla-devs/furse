@@ -6,7 +6,6 @@ pub struct Category {
     pub id: ID,
     pub game_id: ID,
     pub name: String,
-    /// The category slug as it appears in the URL
     pub slug: String,
     pub url: Url,
     pub icon_url: Url,
