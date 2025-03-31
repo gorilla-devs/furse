@@ -1,23 +1,18 @@
-use crate::{
-    request::API_URL_BASE,
-    structures::{mod_structs::*, ID},
-    Furse, Result,
-};
-use serde::{Deserialize, Serialize};
+use super::*;
+use mod_structs::*;
 
 impl Furse {
     /// Get mod with ID `mod_id`
     ///
-    /// Example:
+    /// ## Example
     /// ```rust
-    /// # #[tokio::main]
-    /// # async fn main() -> Result<(), furse::Error> {
+    /// # tokio_test::block_on(async {
     /// # let curseforge = furse::Furse::new(env!("CURSEFORGE_API_KEY"));
     /// // Get the Terralith mod
     /// let terralith_mod = curseforge.get_mod(513688).await?;
     /// // Check that it is made by Starmute
     /// assert_eq!(terralith_mod.authors[0].name, "Starmute");
-    /// # Ok(()) }
+    /// # Ok::<_, furse::Error>(()) }).unwrap()
     /// ```
     pub async fn get_mod(&self, mod_id: ID) -> Result<Mod> {
         Ok(self
@@ -28,20 +23,22 @@ impl Furse {
 
     /// Get multiple mods with IDs `mod_ids`
     ///
-    /// Example:
+    /// ## Example
     /// ```rust
-    /// # #[tokio::main]
-    /// # async fn main() -> Result<(), furse::Error> {
+    /// # tokio_test::block_on(async {
     /// # let curseforge = furse::Furse::new(env!("CURSEFORGE_API_KEY"));
-    /// // Get Xaero's minimap and worldmap mods
+    /// // Get Xaero's Minimap and World Map mods
     /// let mods = curseforge.get_mods(vec![263420, 317780]).await?;
+    /// let [minimap, worldmap, ..] = mods.as_slice() else {
+    ///     panic!("Expected 2 mods, got less");
+    /// };
     /// // Check that both are made by `xaero96`
-    /// assert_eq!(mods[0].authors[0].name, "xaero96");
-    /// assert_eq!(mods[1].authors[0].name, "xaero96");
-    /// # Ok(()) }
+    /// assert_eq!(minimap.authors[0].name, "xaero96");
+    /// assert_eq!(worldmap.authors[0].name, "xaero96");
+    /// # Ok::<_, furse::Error>(()) }).unwrap()
     /// ```
     pub async fn get_mods(&self, mod_ids: Vec<ID>) -> Result<Vec<Mod>> {
-        #[derive(Deserialize, Serialize, Debug, Clone)]
+        #[derive(serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         struct GetModsByIdsListRequestBody {
             mod_ids: Vec<ID>,
@@ -59,14 +56,13 @@ impl Furse {
     ///
     /// Example:
     /// ```rust
-    /// # #[tokio::main]
-    /// # async fn main() -> Result<(), furse::Error> {
+    /// # tokio_test::block_on(async {
     /// # let curseforge = furse::Furse::new(env!("CURSEFORGE_API_KEY"));
     /// // Get the Terralith mod's description
     /// let terralith_mod_description = curseforge.get_mod_description(513688).await?;
     /// // The description would obviously contains the mod's name
     /// assert!(terralith_mod_description.contains("Terralith"));
-    /// # Ok(()) }
+    /// # Ok::<_, furse::Error>(()) }).unwrap()
     /// ```
     pub async fn get_mod_description(&self, mod_id: ID) -> Result<String> {
         Ok(self

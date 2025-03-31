@@ -21,8 +21,7 @@ impl Furse {
     ///
     /// Example:
     /// ```rust
-    /// # #[tokio::main]
-    /// # async fn main() -> Result<(), furse::Error> {
+    /// # tokio_test::block_on(async {
     /// # let curseforge = furse::Furse::new(env!("CURSEFORGE_API_KEY"));
     /// // Get the Terralith mod's v2.0.12 file
     /// let terralith_file = curseforge.get_mod_file(513688, 3606078).await?;
@@ -37,12 +36,18 @@ impl Furse {
     /// let matches = curseforge.get_fingerprint_matches(vec![fingerprint]).await?.exact_matches;
     /// // The resulting file should have the same ID
     /// assert_eq!(matches[0].file.id, terralith_file.id);
-    /// # Ok(()) }
+    /// # Ok::<_, furse::Error>(()) }).unwrap()
     /// ```
     pub async fn get_fingerprint_matches(
         &self,
         fingerprints: Vec<usize>,
     ) -> Result<FingerprintMatches> {
+        #[derive(serde::Serialize)]
+        #[serde(rename_all = "camelCase")]
+        struct GetFingerprintMatchesBody {
+            fingerprints: Vec<usize>,
+        }
+
         Ok(self
             .post(
                 API_URL_BASE.join("fingerprints")?,

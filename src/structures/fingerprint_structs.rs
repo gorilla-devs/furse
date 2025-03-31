@@ -26,9 +26,3 @@ pub struct Match {
     /// The latest files of this mod
     pub latest_files: Vec<File>,
 }
-
-#[derive(Deserialize, Serialize, Debug, Clone)]
-#[serde(rename_all = "camelCase")]
-pub struct GetFingerprintMatchesBody {
-    pub fingerprints: Vec<Number>,
-}

@@ -8,7 +8,6 @@ use super::{
 #[serde(rename_all = "camelCase")]
 pub struct Mod {
     pub id: ID,
-    /// The game ID this mod is for
     pub game_id: ID,
     pub name: String,
     /// The mod slug that would appear in the URL
@@ -24,36 +23,26 @@ pub struct Mod {
     pub primary_category_id: ID,
     /// List of categories that this mod is related to
     pub categories: Vec<Category>,
-    /// The class ID this mod belongs to
-    pub class_id: Option<Number>,
-    /// List of the mod's authors
+    /// The ID of the class this mod belongs to
+    pub class_id: Option<ID>,
     pub authors: Vec<ModAuthor>,
-    /// The mod's logo asset
     pub logo: Option<ModAsset>,
-    /// List of screenshot assets
     pub screenshots: Vec<ModAsset>,
-    /// The ID of the main file of the mod
     pub main_file_id: ID,
-    /// List of latest files of the mod
     pub latest_files: Vec<File>,
     /// List of file related details for the latest files of the mod
     pub latest_files_indexes: Vec<FileIndex>,
-    /// The creation date of the mod
+    pub latest_early_access_files_indexes: Vec<FileIndex>,
     pub date_created: UtcTime,
-    /// The last time the mod was modified
     pub date_modified: UtcTime,
-    /// The release date of the mod
     pub date_released: UtcTime,
-    /// Is mod allowed to be distributed
     pub allow_mod_distribution: Option<bool>,
-    /// The mod popularity rank for the game
     pub game_popularity_rank: Number,
     /// Is the mod available for search.
     /// This can be false when a mod is experimental, in a deleted state, or has only alpha files.
     pub is_available: bool,
-    /// The mod's thumbs up count
-    pub thumbs_up_count: Option<Number>,
-    pub latest_early_access_files_indexes: Vec<String>,
+    pub thumbs_up_count: Number,
+    pub rating: Option<f64>,
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone)]

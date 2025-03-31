@@ -9,14 +9,13 @@ impl Furse {
     ///
     /// Example:
     /// ```rust
-    /// # #[tokio::main]
-    /// # async fn main() -> Result<(), furse::Error> {
+    /// # tokio_test::block_on(async {
     /// # let curseforge = furse::Furse::new(env!("CURSEFORGE_API_KEY"));
     /// // Get the Terralith mod's files
     /// let terralith_files = curseforge.get_mod_files(513688).await?;
     /// // Check that the latest file is downloadable
     /// assert!(terralith_files[0].is_available);
-    /// # Ok(()) }
+    /// # Ok::<_, furse::Error>(()) }).unwrap()
     /// ```
     pub async fn get_mod_files(&self, mod_id: ID) -> Result<Vec<File>> {
         let mut url = API_URL_BASE
@@ -31,14 +30,13 @@ impl Furse {
     ///
     /// Example:
     /// ```rust
-    /// # #[tokio::main]
-    /// # async fn main() -> Result<(), furse::Error> {
+    /// # tokio_test::block_on(async {
     /// # let curseforge = furse::Furse::new(env!("CURSEFORGE_API_KEY"));
     /// // Get the Terralith mod's v2.0.12 file
     /// let terralith_file = curseforge.get_mod_file(513688, 3606078).await?;
     /// // Check that it contains the version in the file name
     /// assert!(terralith_file.file_name.contains("v2.0.12"));
-    /// # Ok(()) }
+    /// # Ok::<_, furse::Error>(()) }).unwrap()
     /// ```
     pub async fn get_mod_file(&self, mod_id: ID, file_id: ID) -> Result<File> {
         Ok(self
@@ -57,14 +55,13 @@ impl Furse {
     ///
     /// Example:
     /// ```rust
-    /// # #[tokio::main]
-    /// # async fn main() -> Result<(), furse::Error> {
+    /// # tokio_test::block_on(async {
     /// # let curseforge = furse::Furse::new(env!("CURSEFORGE_API_KEY"));
     /// // Get the Terralith mod's v2.0.12 file's changelog
     /// let terralith_file_changelog = curseforge.get_mod_file_changelog(513688, 3606078).await?;
     /// // This update had huge performance updates so check that that is mentioned in the changelog
     /// assert!(terralith_file_changelog.contains("performance"));
-    /// # Ok(()) }
+    /// # Ok::<_, furse::Error>(()) }).unwrap()
     /// ```
     pub async fn get_mod_file_changelog(&self, mod_id: ID, file_id: ID) -> Result<String> {
         Ok(self
@@ -84,8 +81,7 @@ impl Furse {
     ///
     /// Example:
     /// ```rust
-    /// # #[tokio::main]
-    /// # async fn main() -> Result<(), furse::Error> {
+    /// # tokio_test::block_on(async {
     /// # let curseforge = furse::Furse::new(env!("CURSEFORGE_API_KEY"));
     /// // Get information about the file
     /// let terralith_mod_file = curseforge.get_mod_file(513688, 3606078).await?;
@@ -93,7 +89,7 @@ impl Furse {
     /// let download_url = curseforge.file_download_url(513688, 3606078).await?;
     /// // They should be the same url
     /// assert_eq!(Some(download_url), terralith_mod_file.download_url);
-    /// # Ok(()) }
+    /// # Ok::<_, furse::Error>(()) }).unwrap()
     /// ```
     pub async fn file_download_url(&self, mod_id: ID, file_id: ID) -> Result<url::Url> {
         Ok(self
@@ -113,14 +109,13 @@ impl Furse {
     ///
     /// Example:
     /// ```rust
-    /// # #[tokio::main]
-    /// # async fn main() -> Result<(), furse::Error> {
+    /// # tokio_test::block_on(async {
     /// # let curseforge = furse::Furse::new(env!("CURSEFORGE_API_KEY"));
     /// // Get the 2 files
     /// let files = curseforge.get_files(vec![3144153, 3778436]).await?;
     /// // The response should have the same amount of files
     /// assert_eq!(files.len(), 2);
-    /// # Ok(()) }
+    /// # Ok::<_, furse::Error>(()) }).unwrap()
     /// ```
     pub async fn get_files(&self, file_ids: Vec<ID>) -> Result<Vec<File>> {
         let file_ids = GetFilesBody { file_ids };

@@ -4,7 +4,7 @@ pub mod fingerprint_structs;
 pub mod mod_structs;
 
 pub type UtcTime = chrono::DateTime<chrono::Utc>;
-pub type Number = usize;
+pub type Number = i64;
 pub type ID = i32;
 
 use serde::{Deserialize, Serialize};

@@ -1,10 +1,10 @@
 use crate::{api_calls::Response, Furse, Result};
-use once_cell::sync::Lazy;
 use reqwest::{IntoUrl, Url};
 use serde::{de::DeserializeOwned, Serialize};
+use std::sync::LazyLock;
 
-pub(crate) static API_URL_BASE: Lazy<Url> =
-    Lazy::new(|| Url::parse("https://api.curseforge.com/v1/").unwrap());
+pub(crate) static API_URL_BASE: LazyLock<Url> =
+    LazyLock::new(|| Url::parse("https://api.curseforge.com/v1/").unwrap());
 
 impl Furse {
     /// Perform a GET request to `url` and deserialise to `T`

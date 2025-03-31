@@ -16,18 +16,15 @@ pub struct File {
     pub file_name: String,
     pub release_type: FileReleaseType,
     pub file_status: FileStatus,
-    /// The file hash (md5 or sha1)
     pub hashes: Vec<FileHash>,
     pub file_date: UtcTime,
     /// The file length in bytes
     pub file_length: Number,
-    /// The number of downloads for the file
     pub download_count: Number,
-    /// The file download URL.
-    /// Null if the mod has disabled mod distribution.
+    pub file_size_on_disk: Option<Number>,
     #[serde(deserialize_with = "deserialise_optional_url")]
     pub download_url: Option<Url>,
-    /// List of game versions this file works on
+    /// List of game versions this file is relevant for
     pub game_versions: Vec<String>,
     /// Metadata used for sorting by game versions
     pub sortable_game_versions: Vec<SortableGameVersion>,
@@ -69,6 +66,14 @@ pub enum FileStatus {
     Baking = 13,
     AwaitingPublishing = 14,
     FailedPublishing = 15,
+    Cooking = 16,
+    Cooked = 17,
+    UnderManualReview = 18,
+    ScanningForMalware = 19,
+    ProcessingFile = 20,
+    PendingRelease = 21,
+    ReadyForCooking = 22,
+    PostProcessing = 23,
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
