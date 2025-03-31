@@ -37,7 +37,7 @@ pub struct File {
     pub modules: Vec<FileModule>,
 }
 
-#[derive(Deserialize_repr, Serialize_repr, Debug, Clone, PartialEq, Eq)]
+#[derive(Deserialize_repr, Serialize_repr, Debug, Clone, Copy, PartialEq, Eq)]
 #[repr(u8)]
 pub enum FileReleaseType {
     Release = 1,
@@ -45,7 +45,7 @@ pub enum FileReleaseType {
     Alpha = 3,
 }
 
-#[derive(Deserialize_repr, Serialize_repr, Debug, Clone, PartialEq, Eq)]
+#[derive(Deserialize_repr, Serialize_repr, Debug, Clone, Copy, PartialEq, Eq)]
 #[repr(u8)]
 pub enum FileStatus {
     Processing = 1,
@@ -91,21 +91,21 @@ pub struct FileHash {
     pub algo: HashAlgo,
 }
 
-#[derive(Deserialize_repr, Serialize_repr, Debug, Clone, PartialEq, Eq)]
+#[derive(Deserialize_repr, Serialize_repr, Debug, Clone, Copy, PartialEq, Eq)]
 #[repr(u8)]
 pub enum HashAlgo {
     Sha1 = 1,
     Md5 = 2,
 }
 
-#[derive(Deserialize, Serialize, Debug, Clone)]
+#[derive(Deserialize, Serialize, Debug, Clone, Copy)]
 #[serde(rename_all = "camelCase")]
 pub struct FileDependency {
     pub mod_id: ID,
     pub relation_type: FileRelationType,
 }
 
-#[derive(Deserialize_repr, Serialize_repr, Debug, Clone, PartialEq, Eq)]
+#[derive(Deserialize_repr, Serialize_repr, Debug, Clone, Copy, PartialEq, Eq)]
 #[repr(u8)]
 pub enum FileRelationType {
     EmbeddedLibrary = 1,

@@ -57,7 +57,7 @@ pub struct ModLinks {
     pub source_url: Option<Url>,
 }
 
-#[derive(Deserialize_repr, Serialize_repr, Debug, Clone, PartialEq, Eq)]
+#[derive(Deserialize_repr, Serialize_repr, Debug, Clone, Copy, PartialEq, Eq)]
 #[repr(u8)]
 pub enum ModStatus {
     New = 1,

@@ -46,14 +46,14 @@ impl Furse {
     ) -> Result<FingerprintMatches> {
         #[derive(serde::Serialize)]
         #[serde(rename_all = "camelCase")]
-        struct GetFingerprintMatchesBody {
+        struct GetFingerprintMatchesRequestBody {
             fingerprints: Vec<usize>,
         }
 
         Ok(self
             .post(
                 API_URL_BASE.join("fingerprints")?,
-                &GetFingerprintMatchesBody { fingerprints },
+                &GetFingerprintMatchesRequestBody { fingerprints },
             )
             .await?
             .data)
