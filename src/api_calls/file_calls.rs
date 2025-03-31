@@ -5,9 +5,9 @@ use crate::{
 };
 
 impl Furse {
-    /// Get the files of mod with `mod_id`
+    /// Get all the files of mod with `mod_id`
     ///
-    /// Example:
+    /// ## Example
     /// ```rust
     /// # tokio_test::block_on(async {
     /// # let curseforge = furse::Furse::new(env!("CURSEFORGE_API_KEY"));
@@ -20,7 +20,7 @@ impl Furse {
     pub async fn get_mod_files(&self, mod_id: ID) -> Result<Vec<File>> {
         let mut url = API_URL_BASE
             .join("mods/")?
-            .join(&format!("{}/", mod_id))?
+            .join(&(mod_id.to_string() + "/"))?
             .join("files")?;
         url.set_query(Some("pageSize=10000"));
         Ok(self.get(url).await?.data)
@@ -28,7 +28,7 @@ impl Furse {
 
     /// Get the file with `file_id` of mod with `mod_id`
     ///
-    /// Example:
+    /// ## Example
     /// ```rust
     /// # tokio_test::block_on(async {
     /// # let curseforge = furse::Furse::new(env!("CURSEFORGE_API_KEY"));
@@ -43,7 +43,7 @@ impl Furse {
             .get(
                 API_URL_BASE
                     .join("mods/")?
-                    .join(&format!("{}/", mod_id))?
+                    .join(&(mod_id.to_string() + "/"))?
                     .join("files/")?
                     .join(&file_id.to_string())?,
             )
@@ -51,16 +51,16 @@ impl Furse {
             .data)
     }
 
-    /// Get the changelog of the file with `file_id` of mod with `mod_id`
+    /// Get the changelog of the file with `file_id` of mod with `mod_id` in HTML format
     ///
-    /// Example:
+    /// ## Example
     /// ```rust
     /// # tokio_test::block_on(async {
     /// # let curseforge = furse::Furse::new(env!("CURSEFORGE_API_KEY"));
     /// // Get the Terralith mod's v2.0.12 file's changelog
-    /// let terralith_file_changelog = curseforge.get_mod_file_changelog(513688, 3606078).await?;
-    /// // This update had huge performance updates so check that that is mentioned in the changelog
-    /// assert!(terralith_file_changelog.contains("performance"));
+    /// let changelog = curseforge.get_mod_file_changelog(513688, 3606078).await?;
+    /// // This update had huge performance updates, so it should be mentioned in the changelog
+    /// assert!(changelog.contains("performance"));
     /// # Ok::<_, furse::Error>(()) }).unwrap()
     /// ```
     pub async fn get_mod_file_changelog(&self, mod_id: ID, file_id: ID) -> Result<String> {
@@ -68,9 +68,9 @@ impl Furse {
             .get(
                 API_URL_BASE
                     .join("mods/")?
-                    .join(&format!("{}/", mod_id))?
+                    .join(&(mod_id.to_string() + "/"))?
                     .join("files/")?
-                    .join(&format!("{}/", file_id))?
+                    .join(&(file_id.to_string() + "/"))?
                     .join("changelog")?,
             )
             .await?
@@ -79,7 +79,7 @@ impl Furse {
 
     /// Get the download URL of the file with `file_id` of mod with `mod_id`
     ///
-    /// Example:
+    /// ## Example
     /// ```rust
     /// # tokio_test::block_on(async {
     /// # let curseforge = furse::Furse::new(env!("CURSEFORGE_API_KEY"));
@@ -96,9 +96,9 @@ impl Furse {
             .get(
                 API_URL_BASE
                     .join("mods/")?
-                    .join(&format!("{}/", mod_id))?
+                    .join(&(mod_id.to_string() + "/"))?
                     .join("files/")?
-                    .join(&format!("{}/", file_id))?
+                    .join(&(file_id.to_string() + "/"))?
                     .join("download-url")?,
             )
             .await?
@@ -107,34 +107,46 @@ impl Furse {
 
     /// Get a list of files from the `file_ids` provided
     ///
-    /// Example:
+    /// This function additionally sorts the returned files in the order you requested them in,
+    /// and leaves `None` in places where a file was not found.
+    ///
+    /// ## Example
     /// ```rust
+    /// # #![feature(assert_matches)]
+    /// # use std::assert_matches::assert_matches;
+    /// # use furse::structures::file_structs::File;
     /// # tokio_test::block_on(async {
     /// # let curseforge = furse::Furse::new(env!("CURSEFORGE_API_KEY"));
-    /// // Get the 2 files
-    /// let files = curseforge.get_files(vec![3144153, 3778436]).await?;
-    /// // The response should have the same amount of files
-    /// assert_eq!(files.len(), 2);
+    /// // Try getting 2 real files, and a non-existent one (1234)
+    /// let files = curseforge.get_files(vec![3144153, 3778436, 1234]).await?;
+    /// // The first two files should be `Some`,
+    /// // and their IDs should be in the order we requested them in
+    /// assert_matches!(files[0], Some(File { id: 3144153, .. }));
+    /// assert_matches!(files[1], Some(File { id: 3778436, .. }));
+    /// // But the last one should be `None` as it doesn't exist
+    /// assert!(files[2].is_none());
     /// # Ok::<_, furse::Error>(()) }).unwrap()
     /// ```
-    pub async fn get_files(&self, file_ids: Vec<ID>) -> Result<Vec<File>> {
+    pub async fn get_files(&self, file_ids: Vec<ID>) -> Result<Vec<Option<File>>> {
         #[derive(serde::Serialize)]
         #[serde(rename_all = "camelCase")]
-        struct GetFilesBody {
+        struct GetFilesBodyRequestBody {
             file_ids: Vec<ID>,
         }
 
-        let file_ids = GetFilesBody { file_ids };
+        let file_ids = GetFilesBodyRequestBody { file_ids };
         let mut files: Vec<File> = self
             .post(API_URL_BASE.join("mods/")?.join("files")?, &file_ids)
             .await?
             .data;
-        let mut actual_files = Vec::new();
+        let mut ordered_files = Vec::new();
         for file_id in file_ids.file_ids {
             if let Some(index) = files.iter().position(|file| file.id == file_id) {
-                actual_files.push(files.swap_remove(index));
+                ordered_files.push(Some(files.swap_remove(index)));
+            } else {
+                ordered_files.push(None);
             }
         }
-        Ok(actual_files)
+        Ok(ordered_files)
     }
 }

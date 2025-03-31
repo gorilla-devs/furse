@@ -54,13 +54,13 @@ impl Furse {
 
     /// Get the description of mod with ID `mod_id`
     ///
-    /// Example:
+    /// ## Example
     /// ```rust
     /// # tokio_test::block_on(async {
     /// # let curseforge = furse::Furse::new(env!("CURSEFORGE_API_KEY"));
     /// // Get the Terralith mod's description
     /// let terralith_mod_description = curseforge.get_mod_description(513688).await?;
-    /// // The description would obviously contains the mod's name
+    /// // The description should contain the mod's name
     /// assert!(terralith_mod_description.contains("Terralith"));
     /// # Ok::<_, furse::Error>(()) }).unwrap()
     /// ```
@@ -69,7 +69,7 @@ impl Furse {
             .get(
                 API_URL_BASE
                     .join("mods/")?
-                    .join(&format!("{}/", mod_id))?
+                    .join(&(mod_id.to_string() + "/"))?
                     .join("description")?,
             )
             .await?

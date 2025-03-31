@@ -1,5 +1,5 @@
-use crate::{request::API_URL_BASE, structures::fingerprint_structs::*, Furse, Result};
-use murmur2::murmur2;
+use super::*;
+use crate::structures::fingerprint_structs::*;
 
 /// Calculate the CurseForge fingerprint for the `bytes` provided
 ///
@@ -13,27 +13,29 @@ pub fn cf_fingerprint(bytes: &[u8]) -> usize {
         .copied()
         .collect::<Vec<u8>>();
     // Hash the contents using seed `1`
-    murmur2(&bytes, 1) as usize
+    murmur2::murmur2(&bytes, 1) as usize
 }
 
 impl Furse {
-    /// Get file structs from the `fingerprints` provided.
+    /// Get file structs from the `fingerprints` provided
     ///
-    /// Example:
+    /// ## Example
     /// ```rust
     /// # tokio_test::block_on(async {
     /// # let curseforge = furse::Furse::new(env!("CURSEFORGE_API_KEY"));
     /// // Get the Terralith mod's v2.0.12 file
     /// let terralith_file = curseforge.get_mod_file(513688, 3606078).await?;
     /// // Download the file contents
-    /// let mut contents = reqwest::get(terralith_file.download_url.unwrap())
+    /// let contents = reqwest::get(terralith_file.download_url.unwrap())
     ///     .await?
     ///     .bytes()
     ///     .await?;
     /// // Hash the contents
     /// let fingerprint = furse::cf_fingerprint(&contents);
     /// // Get the fingerprint matches
-    /// let matches = curseforge.get_fingerprint_matches(vec![fingerprint]).await?.exact_matches;
+    /// let matches = curseforge.get_fingerprint_matches(vec![fingerprint])
+    ///     .await?
+    ///     .exact_matches;
     /// // The resulting file should have the same ID
     /// assert_eq!(matches[0].file.id, terralith_file.id);
     /// # Ok::<_, furse::Error>(()) }).unwrap()

@@ -11,14 +11,15 @@ It uses [reqwest](https://docs.rs/reqwest) for sending requests and deserialisin
 
 ## Features
 
-- API calls
-  - Get mod by mod ID (<https://docs.curseforge.com/rest-api/#get-mod>)
-  - Get mod's HTML description by ID (<https://docs.curseforge.com/rest-api/#get-mod-description>)
-  - Get mod's files by mod ID (<https://docs.curseforge.com/rest-api/#get-mod-files>)
-  - Get file by the mod ID and file ID (<https://docs.curseforge.com/rest-api/#get-mod-file>)
-  - Get file's HTML changelog by mod ID and file ID (<https://docs.curseforge.com/rest-api/#get-mod-file-changelog>)
-  - Download a file from a `File`
-  - Download a file by mod ID and file ID (<https://docs.curseforge.com/rest-api/#get-mod-file-download-url>)
-- Schemas and their dependant schemas
-  - Mod <https://docs.curseforge.com/#tocS_Mod>
-  - File <https://docs.curseforge.com/#tocS_File>
+- Strongly typed structures for API responses
+- Useful examples in the method documentations
+- Implementations for the following API calls
+  - [Get mod by mod ID](https://docs.rs/furse/latest/furse/struct.Furse.html#method.get_mod_file) ([official documentation](https://docs.curseforge.com/rest-api#get-mod))
+  - [Get mods by mod IDs](https://docs.rs/furse/latest/furse/struct.Furse.html#method.get_mods) ([official documentation](https://docs.curseforge.com/rest-api#get-mods))
+  - [Get HTML description by mod ID](https://docs.rs/furse/latest/furse/struct.Furse.html#method.get_mod_description) ([official documentation](https://docs.curseforge.com/rest-api#get-mod-description))
+  - [Get all of the mod's files by mod ID](https://docs.rs/furse/latest/furse/struct.Furse.html#method.get_mod_files) ([official documentation](https://docs.curseforge.com/rest-api#get-mod-files))
+  - [Get file by mod ID and file ID](https://docs.rs/furse/latest/furse/struct.Furse.html#method.get_mod_file) ([official documentation](https://docs.curseforge.com/rest-api#get-mod-file))
+  - [Get files by file IDs](https://docs.rs/furse/latest/furse/struct.Furse.html#method.get_files) ([official documentation](https://docs.curseforge.com/rest-api#get-files))
+  - [Get file's HTML changelog by mod ID and file ID](https://docs.rs/furse/latest/furse/struct.Furse.html#method.get_mod_file_changelog) ([official documentation](https://docs.curseforge.com/rest-api#get-mod-file-changelog))
+  - [Get file's download URL by mod ID and file ID](https://docs.rs/furse/latest/furse/struct.Furse.html#method.file_download_url) ([official documentation](https://docs.curseforge.com/rest-api#get-mod-file-download-url))
+  - [Get files that match the given fingerprints](https://docs.rs/furse/latest/furse/struct.Furse.html#method.get_fingerprint_matches) ([official documentation](https://docs.curseforge.com/rest-api#get-fingerprints-matches))
