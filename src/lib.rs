@@ -9,7 +9,8 @@ pub use api_calls::fingerprint_calls::cf_fingerprint;
 #[error(transparent)]
 pub enum Error {
     ReqwestError(#[from] reqwest::Error),
-    URLParseError(#[from] url::ParseError),
+    JsonError(#[from] serde_json::Error),
+    UrlParseError(#[from] url::ParseError),
 }
 pub(crate) type Result<T> = std::result::Result<T, Error>;
 
@@ -32,7 +33,7 @@ pub struct Furse {
 
 impl Furse {
     /// Create a new API instance
-    /// 
+    ///
     /// Generate an API key in the [console](https://console.curseforge.com/#/api-keys).
     ///
     /// ```rust

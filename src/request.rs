@@ -9,15 +9,16 @@ pub(crate) static API_URL_BASE: LazyLock<Url> =
 impl Furse {
     /// Perform a GET request to `url` and deserialise to `T`
     pub(crate) async fn get<T: DeserializeOwned>(&self, url: impl IntoUrl) -> Result<Response<T>> {
-        Ok(self
+        let bytes = self
             .client
             .get(url)
             .header("x-api-key", &self.api_key)
             .send()
             .await?
             .error_for_status()?
-            .json()
-            .await?)
+            .bytes()
+            .await?;
+        Ok(serde_json::from_slice(&bytes)?)
     }
 
     /// Perform a POST request to `url` with `body`
@@ -26,7 +27,7 @@ impl Furse {
         url: impl IntoUrl,
         body: &B,
     ) -> Result<Response<T>> {
-        Ok(self
+        let bytes = self
             .client
             .post(url)
             .json(body)
@@ -34,7 +35,8 @@ impl Furse {
             .send()
             .await?
             .error_for_status()?
-            .json()
-            .await?)
+            .bytes()
+            .await?;
+        Ok(serde_json::from_slice(&bytes)?)
     }
 }
