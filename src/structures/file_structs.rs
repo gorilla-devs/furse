@@ -34,7 +34,7 @@ pub struct File {
     pub is_early_access_content: Option<bool>,
     pub early_access_end_date: Option<UtcTime>,
     pub file_fingerprint: Number,
-    pub modules: Vec<FileModule>,
+    pub modules: Option<Vec<FileModule>>,
 }
 
 #[derive(Deserialize_repr, Serialize_repr, Debug, Clone, Copy, PartialEq, Eq)]
