@@ -1,5 +1,12 @@
 # Changelog
 
+## `1.6.1`
+### 02.04.2025
+
+- Don't use `reqwest`'s `.json()` method, instead use `serde_json::from_slice` directly. This will give better and more useful error messages when deserialisation fails.
+- Added `JsonError(serde_json::Error)` variant to `furse::Error`.
+- Make `File.modules` nullable to fix [gorilla-devs/ferium#465](https://github.com/gorilla-devs/ferium/issues/465).
+
 ## `1.6.0`
 ### 31.03.2025
 
