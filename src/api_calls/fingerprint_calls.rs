@@ -3,7 +3,7 @@ use crate::structures::fingerprint_structs::*;
 
 /// Calculate the CurseForge fingerprint for the `bytes` provided
 ///
-/// CurseForge uses a modified version of murmur2 where some bytes are stripped,
+/// CurseForge uses a modified version of [murmur2] where some bytes are stripped,
 /// and the resulting bytes are hashes with seed `1`
 pub fn cf_fingerprint(bytes: &[u8]) -> usize {
     // Implement CF's murmur2 modification
@@ -17,7 +17,7 @@ pub fn cf_fingerprint(bytes: &[u8]) -> usize {
 }
 
 impl Furse {
-    /// Get file structs from the `fingerprints` provided
+    /// Get files and mod IDs from the `fingerprints` provided
     ///
     /// ## Example
     /// ```rust
